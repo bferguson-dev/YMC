@@ -1,7 +1,7 @@
 ﻿# WSL2 Migration Handoff (Linux-First Workflow)
 
 Date: 2026-03-03
-Project: `compliance-collector`
+Project: `YMC`
 
 ## Why this handoff exists
 Recent friction came from Windows-specific execution constraints (launcher alias issues, firewall outbound blocks, temp/registry write restrictions in some shells). Moving to WSL2 should remove most of that and make Python tooling predictable.
@@ -10,7 +10,7 @@ Recent friction came from Windows-specific execution constraints (launcher alias
 From Ubuntu in WSL2:
 
 ```bash
-cd /mnt/c/Projects/compliance-collector
+cd /mnt/c/Projects/ymc
 bash scripts/bootstrap_wsl.sh
 ```
 
@@ -23,7 +23,7 @@ That script:
 ## Daily workflow in Linux
 
 ```bash
-cd /mnt/c/Projects/compliance-collector
+cd /mnt/c/Projects/ymc
 source .venv/bin/activate
 ruff check .
 pytest
@@ -66,7 +66,7 @@ pip-audit
 
 ## Known migration caveats
 1. Paths in docs/examples may be Windows-style; convert to Linux paths where needed.
-2. If you keep repo on `/mnt/c`, filesystem performance is lower than native ext4. If test runtime feels slow, clone into WSL home (e.g., `~/src/compliance-collector`).
+2. If you keep repo on `/mnt/c`, filesystem performance is lower than native ext4. If test runtime feels slow, clone into WSL home (e.g., `~/src/ymc`).
 3. WinRM target reachability can differ between Windows host and WSL network namespace; verify with target-specific smoke tests.
 
 ## Done criteria in Linux

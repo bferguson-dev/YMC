@@ -42,7 +42,7 @@ class CheckResult:
 
     # --- Execution context (audit chain of custody) ---
     timestamp_utc: str  # ISO 8601, e.g. "2025-02-17T14:32:01Z"
-    tool_name: str  # e.g. "Compliance Evidence Collector"
+    tool_name: str  # e.g. "YMC"
     tool_version: str  # e.g. "1.0.0"
     executed_by: str  # Username that authenticated to run the check
 

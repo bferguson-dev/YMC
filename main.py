@@ -2,7 +2,7 @@
 """
 main.py
 -------
-Compliance Evidence Collector Ã¢â‚¬â€ CLI entry point and scan orchestrator.
+YMC Ã¢â‚¬â€ CLI entry point and scan orchestrator.
 
 Responsibilities
 ----------------
@@ -80,7 +80,7 @@ from reporters.json_reporter import JsonReporter
 # ---------------------------------------------------------------------------
 colorama_init(autoreset=True)
 
-TOOL_NAME = "Compliance Evidence Collector"
+TOOL_NAME = "YMC"
 TOOL_VERSION = "1.0.0"
 
 # Resolve paths relative to this file so the tool works regardless of the
@@ -92,7 +92,7 @@ DEFAULT_CFG = CONFIG_DIR / "settings.yaml"  # shipped program defaults
 NAMED_CFG_DIR = CONFIG_DIR / "profiles"  # named config profiles
 
 # User-level settings Ã¢â‚¬â€ personal overrides that live outside the install dir
-USER_CFG_DIR = Path.home() / ".compliance-collector"
+USER_CFG_DIR = Path.home() / ".ymc"
 USER_CFG_FILE = USER_CFG_DIR / "settings.yaml"
 USER_PROFILES_DIR = USER_CFG_DIR / "profiles"
 
@@ -117,10 +117,10 @@ def setup_logging(verbose: bool, no_color: bool) -> None:
     # Always show our own module logs at INFO+ so scan milestones appear in
     # verbose mode without drowning in pywinrm/requests noise.
     if verbose:
-        logging.getLogger("compliance_collector").setLevel(logging.DEBUG)
+        logging.getLogger("ymc").setLevel(logging.DEBUG)
 
 
-logger = logging.getLogger("compliance_collector.main")
+logger = logging.getLogger("ymc.main")
 
 
 def configure_console_output() -> None:
@@ -169,7 +169,7 @@ def load_program_defaults() -> dict:
 
 
 def load_user_settings() -> dict:
-    """Loads personal user settings from ~/.compliance-collector/settings.yaml."""
+    """Loads personal user settings from ~/.ymc/settings.yaml."""
     return _load_yaml(USER_CFG_FILE)
 
 
@@ -1303,8 +1303,8 @@ def parse_args() -> argparse.Namespace:
     See docs/settings_reference.md for the full mapping table.
     """
     parser = argparse.ArgumentParser(
-        prog="compliance-collector",
-        description="Collect compliance evidence from remote Windows hosts via WinRM.",
+        prog="ymc",
+        description="Run YMC compliance scans on remote Windows hosts via WinRM.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
@@ -1378,7 +1378,7 @@ Environment variables:
         "--config",
         metavar="NAME",
         help=(
-            "Named config profile from ~/.compliance-collector/profiles/<name>.yaml. "
+            "Named config profile from ~/.ymc/profiles/<name>.yaml. "
             "Use --list-configs to see available profiles."
         ),
     )

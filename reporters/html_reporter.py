@@ -41,9 +41,7 @@ class HtmlReporter(BaseReporter):
         return str(filepath)
 
     def _build_html(self, r: HostScanResult) -> str:
-        tool_name = (
-            r.checks[0].tool_name if r.checks else "Compliance Evidence Collector"
-        )
+        tool_name = r.checks[0].tool_name if r.checks else "YMC"
         tool_version = r.checks[0].tool_version if r.checks else "1.0.0"
 
         # Group checks by category for organized output
@@ -133,7 +131,7 @@ class HtmlReporter(BaseReporter):
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compliance Evidence Report — {self._esc(r.hostname)}</title>
+    <title>YMC Report — {self._esc(r.hostname)}</title>
     <style>
         * {{ box-sizing: border-box; margin: 0; padding: 0; }}
         body {{ font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px;
@@ -240,7 +238,7 @@ class HtmlReporter(BaseReporter):
     <div class="report-header">
         <h1>{self._esc(tool_name)} v{self._esc(tool_version)} — Evidence Report</h1>
         <p class="subtitle">
-            This report constitutes automated compliance evidence collected from the target system.
+            This report contains automated YMC scan evidence collected from the target system.
             Each check row contains the timestamp, executing account, and raw system output
             required for audit substantiation.
         </p>

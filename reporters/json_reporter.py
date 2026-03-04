@@ -16,7 +16,7 @@ class JsonReporter(BaseReporter):
             "report_metadata": {
                 "tool_name": scan_result.checks[0].tool_name
                 if scan_result.checks
-                else "Compliance Evidence Collector",
+                else "YMC",
                 "tool_version": scan_result.checks[0].tool_version
                 if scan_result.checks
                 else "1.0.0",

@@ -168,7 +168,7 @@ class ComplianceRunner:
         self,
         connector: WinRMConnector,
         executed_by: str,
-        tool_name: str = "Compliance Evidence Collector",
+        tool_name: str = "YMC",
         tool_version: str = "1.0.0",
         progress_callback=None,
         host_label: str = "",

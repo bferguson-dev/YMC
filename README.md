@@ -1,8 +1,8 @@
-# Compliance Evidence Collector
+# YMC
 
-Automated compliance evidence collection tool for Windows Server environments. Connects remotely via WinRM, executes checks against hardened security controls, and produces timestamped audit-ready reports.
+YMC is an automated Windows Server compliance scanner. It connects remotely via WinRM, executes checks against hardened security controls, and produces timestamped audit-ready reports.
 
-Built by an infrastructure engineer who has collected compliance evidence the hard way — manually, screenshot by screenshot. This tool automates that work and produces output that satisfies the evidence requirements of major audit frameworks.
+Built by an infrastructure engineer who has done this work manually, screenshot by screenshot. YMC automates that process and produces evidence output aligned to major audit frameworks.
 
 ---
 
@@ -60,7 +60,7 @@ Every check maps to all six frameworks simultaneously. Adding a new framework re
 ## Architecture
 
 ```
-compliance-collector/
+ymc/
 ├── main.py                    # CLI entry point
 ├── config/
 │   └── settings.yaml          # Thresholds and connection settings

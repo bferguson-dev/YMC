@@ -69,8 +69,8 @@ These live under the `evidence` section in settings.yaml, not `cli_defaults`.
 | Priority | Path | Purpose |
 |---|---|---|
 | 5 (lowest) | `<install_dir>/config/settings.yaml` | Program defaults — shipped with tool |
-| 4 | `~/.compliance-collector/settings.yaml` | Personal user defaults |
-| 3 | `~/.compliance-collector/profiles/<n>.yaml` | Named user config profiles |
+| 4 | `~/.ymc/settings.yaml` | Personal user defaults |
+| 3 | `~/.ymc/profiles/<n>.yaml` | Named user config profiles |
 | 3 | `<install_dir>/config/profiles/<n>.yaml` | Named program config profiles |
 | 2 | Environment variables | Pipeline / automation overrides |
 | 1 (highest) | CLI flags | Always win |
@@ -83,13 +83,13 @@ Create profiles for different environments or use cases:
 
 ```bash
 # Create your profiles directory
-mkdir -p ~/.compliance-collector/profiles
+mkdir -p ~/.ymc/profiles
 
 # Copy the default as a starting point
-cp config/profiles/default.yaml ~/.compliance-collector/profiles/corporate.yaml
+cp config/profiles/default.yaml ~/.ymc/profiles/corporate.yaml
 
 # Edit to suit your environment
-nano ~/.compliance-collector/profiles/corporate.yaml
+nano ~/.ymc/profiles/corporate.yaml
 
 # Use it
 python main.py --config corporate --csv hosts.csv
@@ -97,7 +97,7 @@ python main.py --config corporate --csv hosts.csv
 
 **Example profile for a PCI audit engagement:**
 ```yaml
-# ~/.compliance-collector/profiles/pci_audit.yaml
+# ~/.ymc/profiles/pci_audit.yaml
 cli_defaults:
   profile: pci_dss_4
   format: both

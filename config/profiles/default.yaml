@@ -1,9 +1,9 @@
 # =============================================================================
-# Compliance Evidence Collector — Default Config Profile
+# YMC — Default Config Profile
 # =============================================================================
 #
 # This is the baseline named config profile shipped with the tool.
-# Copy it to ~/.compliance-collector/profiles/ and customise for your
+# Copy it to ~/.ymc/profiles/ and customise for your
 # environment. Select it with:  python main.py --config default
 #
 # Profile files use the same structure as settings.yaml but typically only

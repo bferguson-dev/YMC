@@ -7,7 +7,7 @@ Set these for automation, CI/CD pipelines, or to avoid typing the same flags rep
 1. CLI flag
 2. Environment variable
 3. Named config profile (`--config`)
-4. Personal settings (`~/.compliance-collector/settings.yaml`)
+4. Personal settings (`~/.ymc/settings.yaml`)
 5. Program defaults (`config/settings.yaml`)
 
 ---
@@ -123,7 +123,7 @@ export COLLECTOR_OUTPUT_DIR="/var/compliance-reports"
 export COLLECTOR_NO_BANNER="true"
 export COLLECTOR_NO_COLOR="true"
 
-python /opt/compliance-collector/main.py --csv /etc/compliance/pci_hosts.csv
+python /opt/ymc/main.py --csv /etc/compliance/pci_hosts.csv
 
 # Exit code: 0=all pass, 1=connection errors, 2=compliance findings
 echo "Scan exit code: $?"
