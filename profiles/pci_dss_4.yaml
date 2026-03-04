@@ -1,0 +1,112 @@
+# PCI DSS 4.0 Compliance Profile
+# --------------------------------
+profile_name: "PCI DSS 4.0"
+profile_id: "PCI_DSS_4"
+version: "4.0"
+description: >
+  Payment Card Industry Data Security Standard version 4.0.
+  Required for any organization that stores, processes, or transmits
+  cardholder data. Focus on protecting payment card information.
+
+checks:
+
+  # === REQUIREMENT 1: Install and Maintain Network Security Controls ===
+  - {check_id: "CM-005", control_id: "1.3", control_name: "Network Access Controls",     requirement: "Firewall enabled and inbound/outbound traffic restricted."}
+  - {check_id: "NH-001", control_id: "1.3", control_name: "Network Access Controls",     requirement: "Disable LLMNR — prevents credential theft on cardholder network."}
+  - {check_id: "NH-002", control_id: "1.3", control_name: "Network Access Controls",     requirement: "Disable NetBIOS over TCP/IP."}
+  - {check_id: "NH-006", control_id: "1.3", control_name: "Network Access Controls",     requirement: "Restrict null session access."}
+  - {check_id: "NH-012", control_id: "1.2", control_name: "Network Security Controls",   requirement: "Require SMB signing to prevent MITM on cardholder network."}
+  - {check_id: "NH-013", control_id: "1.2", control_name: "Network Security Controls",   requirement: "Require strong RDP encryption."}
+
+  # === REQUIREMENT 2: Apply Secure Configurations ===
+  - {check_id: "CM-001", control_id: "2.2", control_name: "System Configuration Standards",requirement: "Disable SMBv1."}
+  - {check_id: "CM-002", control_id: "2.2", control_name: "System Configuration Standards",requirement: "Disable unnecessary services."}
+  - {check_id: "CM-003", control_id: "2.2", control_name: "System Configuration Standards",requirement: "Review administrative shares."}
+  - {check_id: "CM-004", control_id: "2.2", control_name: "System Configuration Standards",requirement: "Disable AutoRun."}
+  - {check_id: "CM-007", control_id: "2.2", control_name: "System Configuration Standards",requirement: "Enable BitLocker encryption on system drives."}
+  - {check_id: "CM-008", control_id: "2.2", control_name: "System Configuration Standards",requirement: "Disable weak TLS/SSL protocols via SChannel."}
+  - {check_id: "CM-009", control_id: "2.2", control_name: "System Configuration Standards",requirement: "Deploy LAPS for local administrator password management."}
+  - {check_id: "CM-010", control_id: "2.2", control_name: "System Configuration Standards",requirement: "Disable Windows Script Host."}
+  - {check_id: "CM-011", control_id: "2.2", control_name: "System Configuration Standards",requirement: "Implement application control policy (AppLocker/WDAC)."}
+  - {check_id: "CM-015", control_id: "2.2", control_name: "System Configuration Standards",requirement: "Set Windows telemetry to minimum level."}
+  - {check_id: "CM-016", control_id: "2.2", control_name: "System Configuration Standards",requirement: "Disable AutoPlay for all drive types."}
+  - {check_id: "AC-016", control_id: "2.2", control_name: "System Configuration Standards",requirement: "Configure legal notice/logon banner."}
+  - {check_id: "PS-001", control_id: "2.2", control_name: "System Configuration Standards",requirement: "Set PowerShell execution policy to RemoteSigned or AllSigned."}
+  - {check_id: "PS-005", control_id: "2.2", control_name: "System Configuration Standards",requirement: "Disable PowerShell v2 engine."}
+  - {check_id: "SV-001", control_id: "2.2", control_name: "System Configuration Standards",requirement: "Disable Print Spooler on non-print servers."}
+  - {check_id: "SV-002", control_id: "2.2", control_name: "System Configuration Standards",requirement: "Disable Remote Registry service."}
+  - {check_id: "SV-003", control_id: "2.2", control_name: "System Configuration Standards",requirement: "Ensure Telnet is not installed."}
+  - {check_id: "SV-004", control_id: "2.2", control_name: "System Configuration Standards",requirement: "Disable SNMP service."}
+  - {check_id: "SV-005", control_id: "2.2", control_name: "System Configuration Standards",requirement: "Disable unnecessary discovery services."}
+
+  # === REQUIREMENT 3: Protect Stored Account Data ===
+  - {check_id: "AC-018", control_id: "3.5", control_name: "Protection of Stored Data",   requirement: "Disable WDigest to prevent plaintext credential storage."}
+  - {check_id: "AC-011", control_id: "3.5", control_name: "Protection of Stored Data",   requirement: "Enable LSA Protection to prevent credential dumping."}
+  - {check_id: "SR-002", control_id: "3.2", control_name: "Data Retention",              requirement: "Clear pagefile at shutdown."}
+  - {check_id: "SR-003", control_id: "3.2", control_name: "Data Retention",              requirement: "Avoid full memory crash dumps in production."}
+  - {check_id: "SR-004", control_id: "3.2", control_name: "Data Retention",              requirement: "Secure or disable hibernate file."}
+
+  # === REQUIREMENT 5: Protect Against Malicious Software ===
+  - {check_id: "SI-001", control_id: "5.2", control_name: "Anti-Malware",                requirement: "Verify antivirus/EDR is running and active."}
+  - {check_id: "SI-002", control_id: "5.2", control_name: "Anti-Malware",                requirement: "Verify antivirus definitions are current."}
+  - {check_id: "EM-011", control_id: "5.3", control_name: "Anti-Malware Mechanisms",     requirement: "Configure Defender ASR rules."}
+  - {check_id: "PS-002", control_id: "5.3", control_name: "Anti-Malware Mechanisms",     requirement: "Enable PowerShell Script Block Logging."}
+
+  # === REQUIREMENT 6: Develop and Maintain Secure Systems ===
+  - {check_id: "SI-003", control_id: "6.3", control_name: "Security Vulnerabilities",    requirement: "Verify OS patch level."}
+  - {check_id: "SI-004", control_id: "6.3", control_name: "Security Vulnerabilities",    requirement: "Identify missing security updates."}
+  - {check_id: "SI-005", control_id: "6.3", control_name: "Security Vulnerabilities",    requirement: "Verify OS is within support lifecycle."}
+  - {check_id: "SI-006", control_id: "6.3", control_name: "Security Vulnerabilities",    requirement: "Identify EOL .NET Framework versions."}
+  - {check_id: "CM-006", control_id: "6.3", control_name: "Security Vulnerabilities",    requirement: "Verify automatic updates are configured."}
+  - {check_id: "EM-004", control_id: "6.3", control_name: "Security Vulnerabilities",    requirement: "Verify Spectre/Meltdown mitigations."}
+  - {check_id: "EM-005", control_id: "6.3", control_name: "Security Vulnerabilities",    requirement: "Verify PrintNightmare mitigation."}
+
+  # === REQUIREMENT 7: Restrict Access ===
+  - {check_id: "AC-001", control_id: "7.2", control_name: "Access Control Systems",      requirement: "Identify inactive accounts."}
+  - {check_id: "AC-003", control_id: "7.2", control_name: "Access Control Systems",      requirement: "Disable Guest account."}
+  - {check_id: "AC-004", control_id: "7.2", control_name: "Access Control Systems",      requirement: "Rename default Administrator account."}
+  - {check_id: "AC-005", control_id: "7.2", control_name: "Access Control Systems",      requirement: "Review local Administrators group."}
+  - {check_id: "AC-009", control_id: "7.2", control_name: "Access Control Systems",      requirement: "Review privileged group membership."}
+
+  # === REQUIREMENT 8: Identify Users and Authenticate ===
+  - {check_id: "IA-001", control_id: "8.3", control_name: "Strong Authentication",       requirement: "Enforce password length minimum 12 characters (PCI requires 12, we check 14)."}
+  - {check_id: "IA-002", control_id: "8.3", control_name: "Strong Authentication",       requirement: "Enforce password complexity."}
+  - {check_id: "IA-003", control_id: "8.3", control_name: "Strong Authentication",       requirement: "Enforce max password age 90 days."}
+  - {check_id: "IA-004", control_id: "8.6", control_name: "Multi-Factor Authentication", requirement: "Enforce NLA for RDP."}
+  - {check_id: "AC-006", control_id: "8.3", control_name: "Strong Authentication",       requirement: "Configure account lockout (max 10 attempts per PCI)."}
+  - {check_id: "AC-007", control_id: "8.3", control_name: "Strong Authentication",       requirement: "Configure lockout duration minimum 30 minutes per PCI."}
+  - {check_id: "AC-008", control_id: "8.3", control_name: "Strong Authentication",       requirement: "Enforce session lock / idle timeout."}
+  - {check_id: "AC-012", control_id: "8.6", control_name: "Multi-Factor Authentication", requirement: "Enable Credential Guard."}
+  - {check_id: "AC-013", control_id: "8.3", control_name: "Strong Authentication",       requirement: "No accounts with password set to never expire."}
+  - {check_id: "AC-014", control_id: "8.3", control_name: "Strong Authentication",       requirement: "All accounts must require a password."}
+  - {check_id: "AC-015", control_id: "8.3", control_name: "Strong Authentication",       requirement: "Block blank password network authentication."}
+  - {check_id: "AC-017", control_id: "8.3", control_name: "Strong Authentication",       requirement: "Limit cached domain credentials."}
+  - {check_id: "AC-019", control_id: "8.3", control_name: "Strong Authentication",       requirement: "Restrict anonymous SAM access."}
+
+  # === REQUIREMENT 10: Log and Monitor ===
+  - {check_id: "AU-001", control_id: "10.2", control_name: "Audit Log Implementation",   requirement: "Log all logon and logoff events."}
+  - {check_id: "AU-002", control_id: "10.2", control_name: "Audit Log Implementation",   requirement: "Log privilege use events."}
+  - {check_id: "AU-003", control_id: "10.2", control_name: "Audit Log Implementation",   requirement: "Log account management events."}
+  - {check_id: "AU-004", control_id: "10.5", control_name: "Audit Log Security",         requirement: "Security log minimum 192MB."}
+  - {check_id: "AU-006", control_id: "10.5", control_name: "Audit Log Security",         requirement: "Forward logs to central log management."}
+  - {check_id: "AU-007", control_id: "10.2", control_name: "Audit Log Implementation",   requirement: "Enable advanced audit policy."}
+  - {check_id: "AU-011", control_id: "10.6", control_name: "Time Synchronization",       requirement: "Configure NTP to authoritative time source (PCI DSS 10.6)."}
+  - {check_id: "AU-013", control_id: "10.2", control_name: "Audit Log Implementation",   requirement: "Capture process creation command line arguments."}
+  - {check_id: "AU-014", control_id: "10.5", control_name: "Audit Log Security",         requirement: "Configure Windows Event Forwarding."}
+  - {check_id: "AU-015", control_id: "10.2", control_name: "Audit Log Implementation",   requirement: "Audit removable storage device access."}
+  - {check_id: "PS-003", control_id: "10.2", control_name: "Audit Log Implementation",   requirement: "Enable PowerShell Module Logging."}
+  - {check_id: "PS-004", control_id: "10.2", control_name: "Audit Log Implementation",   requirement: "Enable PowerShell Transcription Logging."}
+
+  # === REQUIREMENT 12: Support Information Security ===
+  - {check_id: "AC-020", control_id: "12.5", control_name: "Security Policies",          requirement: "Display last logon information at login."}
+  - {check_id: "SR-001", control_id: "12.3", control_name: "Risk Management",            requirement: "Verify restore points/VSS are enabled."}
+  - {check_id: "SR-005", control_id: "12.3", control_name: "Risk Management",            requirement: "Verify BitLocker recovery key is backed up."}
+  - {check_id: "CERT-001", control_id: "12.3", control_name: "Risk Management",          requirement: "Identify expired certificates."}
+
+  # === EXPLOIT MITIGATIONS ===
+  - {check_id: "EM-001", control_id: "6.3", control_name: "Security Vulnerabilities",    requirement: "Enable DEP for all processes."}
+  - {check_id: "EM-002", control_id: "6.3", control_name: "Security Vulnerabilities",    requirement: "Enable ASLR."}
+  - {check_id: "EM-008", control_id: "2.2", control_name: "System Configuration",        requirement: "Enable Secure Boot."}
+  - {check_id: "EM-009", control_id: "2.2", control_name: "System Configuration",        requirement: "Configure UAC."}
+  - {check_id: "NH-007", control_id: "1.3", control_name: "Network Access Controls",     requirement: "Disable ICMP redirects."}
+  - {check_id: "NH-008", control_id: "1.3", control_name: "Network Access Controls",     requirement: "Disable IP source routing."}

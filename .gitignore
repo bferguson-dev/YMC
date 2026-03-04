@@ -1,0 +1,32 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+.venv313/
+.venv.windows_backup_*/
+venv/
+env/
+
+# Tooling caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.tmp/
+
+# Local scan/output artifacts
+scan_*/
+out/
+out_*/
+reports/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Windows metadata sidecars
+*:Zone.Identifier

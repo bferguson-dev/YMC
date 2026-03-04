@@ -1,0 +1,44 @@
+# =============================================================================
+# Compliance Evidence Collector — Default Config Profile
+# =============================================================================
+#
+# This is the baseline named config profile shipped with the tool.
+# Copy it to ~/.compliance-collector/profiles/ and customise for your
+# environment. Select it with:  python main.py --config default
+#
+# Profile files use the same structure as settings.yaml but typically only
+# override the sections relevant to a specific use case. Unset keys fall
+# through to personal settings, then program defaults.
+#
+# Example profiles you might create:
+#   corporate.yaml    - Org-wide standard: domain, username, output dir all set
+#   pci_audit.yaml    - PCI profile, HTTPS WinRM, stricter timeouts
+#   home_lab.yaml     - Longer timeouts for slow VMs, verbose logging on
+# =============================================================================
+
+cli_defaults:
+  profile: nist_800_53
+  format: html
+  output_dir:          # blank = platform default Documents folder
+  domain:              # set to your DNS domain e.g. corp.local
+  username:            # set to your service account e.g. compliance-svc
+  winrm_port: 5985
+  verbose: false
+  no_color: false
+  no_banner: false
+
+connection:
+  winrm_transport: ntlm
+  connection_timeout: 30
+  read_timeout: 120
+
+evidence:
+  inactive_account_threshold_days: 90
+  max_lockout_attempts: 5
+  min_security_log_size_kb: 196608
+  min_password_length: 14
+  max_password_age_days: 90
+
+output:
+  include_raw_evidence: true
+  filename_timestamp_format: "%Y%m%d_%H%M%S"

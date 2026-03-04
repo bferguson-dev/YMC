@@ -1,0 +1,30 @@
+# =============================================================================
+# Compliance Evidence Collector — Example Hosts CSV
+# =============================================================================
+# This file shows real-world usage patterns. Copy hosts_template.csv for your
+# own use — this file is for reference only.
+# =============================================================================
+
+# DNS domain suffix for all bare hostnames in this file.
+# Bare hostname "web01" becomes "web01.corp.local" at scan time.
+# FQDNs and IPs are never modified.
+domain,corp.local
+
+host,username,label,port,notes
+# --- Primary Data Center ---
+# Bare hostname — domain suffix corp.local will be appended automatically
+web01,compliance-svc,Production Web Server,5985,IIS 10 - hosts customer portal
+
+# Explicit FQDN — domain suffix is NOT appended (already has a dot)
+db01.corp.local,compliance-svc,Production Database Server,5985,SQL Server 2022 - PCI in-scope
+
+# Domain controller — uses a different service account with DC-specific rights
+dc01,dc-audit-svc,Primary Domain Controller,5985,Windows Server 2022 - PDC emulator
+
+# --- DR Site ---
+# IP address used because DR site has no internal DNS resolution
+# Domain suffix is NOT appended to IPs
+192.168.100.10,compliance-svc,DR Web Server,5986,HTTPS WinRM (5986) - self-signed cert in DR
+
+# Explicit FQDN to a different domain — stays exactly as written
+jump01.dr.corp.local,admin,Jump Server (DR),5985,Administrative jump host - restricted access

@@ -1,0 +1,98 @@
+# CMMC 2.0 Level 2 Compliance Profile
+# --------------------------------------
+profile_name: "CMMC 2.0 Level 2"
+profile_id: "CMMC_2"
+version: "2.0 Level 2"
+description: >
+  Cybersecurity Maturity Model Certification Level 2.
+  Required for DoD contractors handling Controlled Unclassified Information (CUI).
+  Level 2 aligns with NIST SP 800-171 Rev 2 (110 practices).
+
+checks:
+
+  # === AC: Access Control ===
+  - {check_id: "AC-001", control_id: "AC.L2-3.1.1",  control_name: "Authorized Access",  requirement: "Limit system access to authorized users — identify inactive accounts."}
+  - {check_id: "AC-002", control_id: "AC.L2-3.1.1",  control_name: "Authorized Access",  requirement: "Disable inactive accounts."}
+  - {check_id: "AC-003", control_id: "AC.L2-3.1.1",  control_name: "Authorized Access",  requirement: "Disable Guest account."}
+  - {check_id: "AC-004", control_id: "AC.L2-3.1.5",  control_name: "Least Privilege",    requirement: "Rename default Administrator account."}
+  - {check_id: "AC-005", control_id: "AC.L2-3.1.5",  control_name: "Least Privilege",    requirement: "Review local Administrators group."}
+  - {check_id: "AC-006", control_id: "AC.L2-3.1.8",  control_name: "Unsuccessful Logons",requirement: "Configure account lockout."}
+  - {check_id: "AC-007", control_id: "AC.L2-3.1.8",  control_name: "Unsuccessful Logons",requirement: "Configure lockout duration."}
+  - {check_id: "AC-008", control_id: "AC.L2-3.1.10", control_name: "Session Lock",       requirement: "Enforce session lock with screen saver."}
+  - {check_id: "AC-009", control_id: "AC.L2-3.1.5",  control_name: "Least Privilege",    requirement: "Review privileged group membership."}
+  - {check_id: "AC-010", control_id: "AC.L2-3.1.3",  control_name: "CUI Flow Control",   requirement: "Restrict RDP access."}
+  - {check_id: "AC-011", control_id: "AC.L2-3.1.1",  control_name: "Authorized Access",  requirement: "Enable LSA Protection."}
+  - {check_id: "AC-012", control_id: "AC.L2-3.1.1",  control_name: "Authorized Access",  requirement: "Enable Credential Guard."}
+  - {check_id: "AC-013", control_id: "IA.L2-3.5.3",  control_name: "Multifactor Auth",   requirement: "No accounts with non-expiring passwords."}
+  - {check_id: "AC-014", control_id: "IA.L2-3.5.3",  control_name: "Multifactor Auth",   requirement: "All accounts require a password."}
+  - {check_id: "AC-015", control_id: "IA.L2-3.5.3",  control_name: "Multifactor Auth",   requirement: "Block blank password network auth."}
+  - {check_id: "AC-016", control_id: "AC.L2-3.1.9",  control_name: "Privacy Notices",    requirement: "Configure logon banner (CUI system use notification)."}
+  - {check_id: "AC-017", control_id: "IA.L2-3.5.3",  control_name: "Multifactor Auth",   requirement: "Limit cached domain credentials."}
+  - {check_id: "AC-018", control_id: "IA.L2-3.5.3",  control_name: "Multifactor Auth",   requirement: "Disable WDigest."}
+  - {check_id: "AC-019", control_id: "AC.L2-3.1.1",  control_name: "Authorized Access",  requirement: "Restrict anonymous SAM access."}
+  - {check_id: "AC-020", control_id: "AC.L2-3.1.9",  control_name: "Privacy Notices",    requirement: "Display last logon information."}
+
+  # === AU: Audit and Accountability ===
+  - {check_id: "AU-001", control_id: "AU.L2-3.3.1",  control_name: "System Auditing",    requirement: "Create and retain system audit logs — logon events."}
+  - {check_id: "AU-002", control_id: "AU.L2-3.3.1",  control_name: "System Auditing",    requirement: "Audit privilege use."}
+  - {check_id: "AU-003", control_id: "AU.L2-3.3.1",  control_name: "System Auditing",    requirement: "Audit account management."}
+  - {check_id: "AU-004", control_id: "AU.L2-3.3.2",  control_name: "Audit Protection",   requirement: "Security log minimum 192MB."}
+  - {check_id: "AU-005", control_id: "AU.L2-3.3.2",  control_name: "Audit Protection",   requirement: "Verify log retention."}
+  - {check_id: "AU-006", control_id: "AU.L2-3.3.2",  control_name: "Audit Protection",   requirement: "Forward logs to central management."}
+  - {check_id: "AU-007", control_id: "AU.L2-3.3.1",  control_name: "System Auditing",    requirement: "Enable advanced audit policy."}
+  - {check_id: "AU-008", control_id: "AU.L2-3.3.1",  control_name: "System Auditing",    requirement: "Deploy Sysmon."}
+  - {check_id: "AU-011", control_id: "AU.L2-3.3.7",  control_name: "Authoritative Time", requirement: "Verify NTP configuration."}
+  - {check_id: "AU-013", control_id: "AU.L2-3.3.1",  control_name: "System Auditing",    requirement: "Capture process cmdline arguments."}
+  - {check_id: "AU-014", control_id: "AU.L2-3.3.2",  control_name: "Audit Protection",   requirement: "Configure Windows Event Forwarding."}
+  - {check_id: "AU-015", control_id: "AU.L2-3.3.1",  control_name: "System Auditing",    requirement: "Audit removable storage access."}
+  - {check_id: "PS-002", control_id: "AU.L2-3.3.1",  control_name: "System Auditing",    requirement: "Enable PS Script Block Logging."}
+  - {check_id: "PS-003", control_id: "AU.L2-3.3.1",  control_name: "System Auditing",    requirement: "Enable PS Module Logging."}
+  - {check_id: "PS-004", control_id: "AU.L2-3.3.1",  control_name: "System Auditing",    requirement: "Enable PS Transcription Logging."}
+
+  # === CM: Configuration Management ===
+  - {check_id: "CM-001", control_id: "CM.L2-3.4.7",  control_name: "Nonessential Functions",requirement: "Disable SMBv1."}
+  - {check_id: "CM-002", control_id: "CM.L2-3.4.7",  control_name: "Nonessential Functions",requirement: "Disable unnecessary services."}
+  - {check_id: "CM-004", control_id: "CM.L2-3.4.7",  control_name: "Nonessential Functions",requirement: "Disable AutoRun."}
+  - {check_id: "CM-005", control_id: "CM.L2-3.4.7",  control_name: "Nonessential Functions",requirement: "Enable Windows Firewall."}
+  - {check_id: "CM-006", control_id: "SI.L2-3.14.1", control_name: "Flaw Remediation",   requirement: "Configure automatic updates."}
+  - {check_id: "CM-007", control_id: "SC.L2-3.13.16",control_name: "CUI at Rest",         requirement: "Enable BitLocker for CUI protection at rest."}
+  - {check_id: "CM-008", control_id: "SC.L2-3.13.8", control_name: "Network Comms",       requirement: "Disable weak TLS protocols."}
+  - {check_id: "CM-009", control_id: "CM.L2-3.4.2",  control_name: "Security Config",     requirement: "Deploy LAPS."}
+  - {check_id: "CM-010", control_id: "CM.L2-3.4.7",  control_name: "Nonessential Functions",requirement: "Disable Windows Script Host."}
+  - {check_id: "CM-011", control_id: "CM.L2-3.4.7",  control_name: "Nonessential Functions",requirement: "Implement AppLocker/WDAC."}
+  - {check_id: "CM-016", control_id: "CM.L2-3.4.7",  control_name: "Nonessential Functions",requirement: "Disable AutoPlay for all drives."}
+  - {check_id: "PS-001", control_id: "CM.L2-3.4.7",  control_name: "Nonessential Functions",requirement: "Set PS execution policy."}
+  - {check_id: "PS-005", control_id: "CM.L2-3.4.7",  control_name: "Nonessential Functions",requirement: "Disable PS v2."}
+  - {check_id: "SV-001", control_id: "CM.L2-3.4.7",  control_name: "Nonessential Functions",requirement: "Disable Print Spooler."}
+  - {check_id: "SV-002", control_id: "CM.L2-3.4.7",  control_name: "Nonessential Functions",requirement: "Disable Remote Registry."}
+  - {check_id: "SV-003", control_id: "CM.L2-3.4.7",  control_name: "Nonessential Functions",requirement: "Ensure Telnet is not installed."}
+  - {check_id: "SV-004", control_id: "CM.L2-3.4.7",  control_name: "Nonessential Functions",requirement: "Disable SNMP."}
+
+  # === IA: Identification and Authentication ===
+  - {check_id: "IA-001", control_id: "IA.L2-3.5.7",  control_name: "Password Complexity",requirement: "Enforce password length minimum 14."}
+  - {check_id: "IA-002", control_id: "IA.L2-3.5.7",  control_name: "Password Complexity",requirement: "Enforce password complexity."}
+  - {check_id: "IA-003", control_id: "IA.L2-3.5.7",  control_name: "Password Complexity",requirement: "Enforce password expiration."}
+  - {check_id: "IA-004", control_id: "IA.L2-3.5.3",  control_name: "Multifactor Auth",   requirement: "Require NLA for RDP."}
+
+  # === SC: System and Communications Protection ===
+  - {check_id: "NH-001", control_id: "SC.L2-3.13.1", control_name: "Boundary Protection",requirement: "Disable LLMNR."}
+  - {check_id: "NH-002", control_id: "SC.L2-3.13.1", control_name: "Boundary Protection",requirement: "Disable NetBIOS."}
+  - {check_id: "NH-006", control_id: "SC.L2-3.13.1", control_name: "Boundary Protection",requirement: "Restrict null sessions."}
+  - {check_id: "NH-012", control_id: "SC.L2-3.13.8", control_name: "Network Comms",       requirement: "Require SMB signing."}
+  - {check_id: "NH-013", control_id: "SC.L2-3.13.8", control_name: "Network Comms",       requirement: "Require strong RDP encryption."}
+
+  # === SI: System and Information Integrity ===
+  - {check_id: "SI-001", control_id: "SI.L2-3.14.2", control_name: "Malicious Code",     requirement: "Verify antivirus/EDR running."}
+  - {check_id: "SI-002", control_id: "SI.L2-3.14.2", control_name: "Malicious Code",     requirement: "Verify AV signatures current."}
+  - {check_id: "SI-003", control_id: "SI.L2-3.14.1", control_name: "Flaw Remediation",   requirement: "Verify OS patch level."}
+  - {check_id: "SI-004", control_id: "SI.L2-3.14.1", control_name: "Flaw Remediation",   requirement: "Identify missing updates."}
+  - {check_id: "SI-005", control_id: "SI.L2-3.14.1", control_name: "Flaw Remediation",   requirement: "Verify OS within support lifecycle."}
+  - {check_id: "EM-001", control_id: "SI.L2-3.14.2", control_name: "Malicious Code",     requirement: "Enable DEP."}
+  - {check_id: "EM-002", control_id: "SI.L2-3.14.2", control_name: "Malicious Code",     requirement: "Enable ASLR."}
+  - {check_id: "EM-005", control_id: "SI.L2-3.14.1", control_name: "Flaw Remediation",   requirement: "Verify PrintNightmare mitigation."}
+  - {check_id: "EM-008", control_id: "SI.L2-3.14.6", control_name: "Security Alerts",    requirement: "Enable Secure Boot."}
+  - {check_id: "EM-009", control_id: "AC.L2-3.1.5",  control_name: "Least Privilege",    requirement: "Configure UAC."}
+  - {check_id: "EM-011", control_id: "SI.L2-3.14.2", control_name: "Malicious Code",     requirement: "Configure ASR rules."}
+  - {check_id: "SR-001", control_id: "RE.L2-3.11.1", control_name: "Backup",             requirement: "Verify restore points enabled."}
+  - {check_id: "SR-005", control_id: "RE.L2-3.11.1", control_name: "Backup",             requirement: "Verify BitLocker recovery key backed up."}
+  - {check_id: "CIS-001", control_id: "CM.L2-3.4.2", control_name: "Security Config",    requirement: "Verify CIS Level 1 baseline settings."}

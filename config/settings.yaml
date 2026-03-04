@@ -1,0 +1,145 @@
+# =============================================================================
+# Compliance Evidence Collector — Program Default Settings
+# =============================================================================
+#
+# This file provides program-wide defaults. It is the LOWEST priority config
+# source. Values here are overridden by (in order of increasing priority):
+#
+#   1. This file                              (lowest priority)
+#   2. ~/.compliance-collector/settings.yaml  (personal user defaults)
+#   3. Named config profile                   (--config corporate)
+#   4. Environment variables                  (COLLECTOR_*)
+#   5. CLI flags                              (highest priority)
+#
+# To create a personal settings file:
+#   mkdir -p ~/.compliance-collector
+#   cp <install_dir>/config/settings.yaml ~/.compliance-collector/settings.yaml
+#
+# To create a named config profile:
+#   cp config/settings.yaml ~/.compliance-collector/profiles/myprofile.yaml
+#   python main.py --config myprofile ...
+#
+# Environment variables mirror every setting. See docs/environment_variables.md
+# =============================================================================
+
+
+# =============================================================================
+# CLI DEFAULTS
+# Mirror every command-line argument. CLI flags always override these.
+# =============================================================================
+cli_defaults:
+
+  # Compliance framework profile to run.
+  # Available: nist_800_53 | pci_dss_4 | soc2 | hipaa | cmmc_2 | iso_27001
+  # ENV: COLLECTOR_PROFILE
+  profile: nist_800_53
+
+  # Report output format.  Options: html | json | both
+  # ENV: COLLECTOR_FORMAT
+  format: html
+
+  # Where to save scan report folders.
+  # This project is configured to write reports into the repository root.
+  # ENV: COLLECTOR_OUTPUT_DIR
+  output_dir: "C:\\Projects\\compliance-collector"
+
+  # DNS domain suffix appended to bare hostnames (not FQDNs or IPs).
+  # Example: domain = corp.local  ->  "webserver" becomes "webserver.corp.local"
+  # ENV: COLLECTOR_DOMAIN
+  domain:
+
+  # Default username when not provided via --username or CSV column.
+  # ENV: COLLECTOR_USERNAME
+  username:
+
+  # Default WinRM port. 5985 = HTTP (standard), 5986 = HTTPS.
+  # ENV: COLLECTOR_WINRM_PORT
+  winrm_port: 5985
+
+  # Named config profile from ~/.compliance-collector/profiles/<name>.yaml
+  # ENV: COLLECTOR_CONFIG
+  config:
+
+  # Enable verbose/debug logging.
+  # ENV: COLLECTOR_VERBOSE
+  verbose: false
+
+  # Disable colour output. Useful in CI/CD or terminals without colour support.
+  # ENV: COLLECTOR_NO_COLOR
+  no_color: false
+
+  # Suppress the startup banner. Useful in pipelines.
+  # ENV: COLLECTOR_NO_BANNER
+  no_banner: false
+
+  # Run host scans in parallel (future capability — not yet implemented).
+  # ENV: COLLECTOR_PARALLEL
+  parallel: false
+
+
+# =============================================================================
+# CONNECTION
+# WinRM transport and timeout settings.
+# =============================================================================
+connection:
+
+  # WinRM authentication transport.
+  # ntlm        - Standard Windows auth. Works in workgroup and domain.
+  # kerberos    - Domain environments with proper SPN setup. Most secure.
+  # basic       - Plaintext. Only use over HTTPS (port 5986).
+  # certificate - Certificate-based auth. Requires cert setup on both ends.
+  # ENV: COLLECTOR_WINRM_TRANSPORT
+  winrm_transport: ntlm
+
+  # Seconds to wait when establishing a TCP connection to the target.
+  # ENV: COLLECTOR_CONN_TIMEOUT
+  connection_timeout: 30
+
+  # Seconds to wait for a PowerShell command to return output.
+  # SI-004 (missing updates) can take 30-60s — keep this above 60.
+  # ENV: COLLECTOR_READ_TIMEOUT
+  read_timeout: 120
+
+
+# =============================================================================
+# EVIDENCE THRESHOLDS
+# Tune these to match your organisation's policy. Check functions read these
+# at runtime — changing them here changes pass/fail outcomes without touching
+# any Python code.
+# =============================================================================
+evidence:
+
+  # Days of inactivity before a user account is flagged (AC-001).
+  # NIST 800-53 AC-2 and PCI DSS both recommend 90 days.
+  # ENV: COLLECTOR_INACTIVE_DAYS
+  inactive_account_threshold_days: 90
+
+  # Maximum account lockout threshold in failed attempts (AC-006).
+  # ENV: COLLECTOR_MAX_LOCKOUT
+  max_lockout_attempts: 5
+
+  # Minimum Windows Security event log size in KB (AU-004).
+  # 196608 KB = 192 MB.
+  # ENV: COLLECTOR_LOG_SIZE_MB  (MB in env var, converted to KB internally)
+  min_security_log_size_kb: 196608
+
+  # Minimum acceptable password length (IA-001).
+  min_password_length: 14
+
+  # Maximum password age in days (IA-002). Set 0 to disable age checking.
+  max_password_age_days: 90
+
+
+# =============================================================================
+# OUTPUT
+# Report generation settings.
+# =============================================================================
+output:
+
+  # Include raw PowerShell output in reports.
+  # true  - Full evidence. Larger reports, better for auditors.
+  # false - Findings only. Smaller reports, better for executives.
+  include_raw_evidence: true
+
+  # Timestamp format for scan folder names (scan_YYYYMMDD_HHMMSS).
+  filename_timestamp_format: "%Y%m%d_%H%M%S"

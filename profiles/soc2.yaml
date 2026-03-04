@@ -1,0 +1,98 @@
+# SOC 2 Trust Services Criteria Compliance Profile
+# ---------------------------------------------------
+profile_name: "SOC 2 Trust Services Criteria"
+profile_id: "SOC2"
+version: "2017 (updated 2022)"
+description: >
+  AICPA Trust Services Criteria for Security, Availability, Processing Integrity,
+  Confidentiality, and Privacy. Required for service organizations demonstrating
+  controls to customers and auditors.
+
+checks:
+
+  # === CC6: Logical and Physical Access Controls ===
+  - {check_id: "AC-001", control_id: "CC6.1", control_name: "Logical Access Security",   requirement: "Identify inactive accounts — restrict logical access."}
+  - {check_id: "AC-003", control_id: "CC6.1", control_name: "Logical Access Security",   requirement: "Disable Guest account."}
+  - {check_id: "AC-004", control_id: "CC6.1", control_name: "Logical Access Security",   requirement: "Rename default Administrator account."}
+  - {check_id: "AC-005", control_id: "CC6.1", control_name: "Logical Access Security",   requirement: "Review local Administrators group membership."}
+  - {check_id: "AC-006", control_id: "CC6.1", control_name: "Logical Access Security",   requirement: "Configure account lockout policy."}
+  - {check_id: "AC-007", control_id: "CC6.1", control_name: "Logical Access Security",   requirement: "Configure lockout duration."}
+  - {check_id: "AC-008", control_id: "CC6.1", control_name: "Logical Access Security",   requirement: "Enforce session lock with screen saver."}
+  - {check_id: "AC-009", control_id: "CC6.1", control_name: "Logical Access Security",   requirement: "Review privileged group membership."}
+  - {check_id: "AC-010", control_id: "CC6.1", control_name: "Logical Access Security",   requirement: "Restrict RDP exposure."}
+  - {check_id: "AC-011", control_id: "CC6.1", control_name: "Logical Access Security",   requirement: "Enable LSA Protection."}
+  - {check_id: "AC-012", control_id: "CC6.1", control_name: "Logical Access Security",   requirement: "Enable Credential Guard."}
+  - {check_id: "AC-013", control_id: "CC6.1", control_name: "Logical Access Security",   requirement: "No accounts with non-expiring passwords."}
+  - {check_id: "AC-014", control_id: "CC6.1", control_name: "Logical Access Security",   requirement: "All accounts require a password."}
+  - {check_id: "AC-015", control_id: "CC6.1", control_name: "Logical Access Security",   requirement: "Block blank password network auth."}
+  - {check_id: "AC-016", control_id: "CC6.1", control_name: "Logical Access Security",   requirement: "Configure logon banner."}
+  - {check_id: "AC-017", control_id: "CC6.1", control_name: "Logical Access Security",   requirement: "Limit cached domain credentials."}
+  - {check_id: "AC-018", control_id: "CC6.1", control_name: "Logical Access Security",   requirement: "Disable WDigest authentication."}
+  - {check_id: "AC-019", control_id: "CC6.1", control_name: "Logical Access Security",   requirement: "Restrict null session anonymous access."}
+  - {check_id: "AC-020", control_id: "CC6.1", control_name: "Logical Access Security",   requirement: "Display last logon information."}
+  - {check_id: "IA-001", control_id: "CC6.1", control_name: "Logical Access Security",   requirement: "Enforce password length minimum 14."}
+  - {check_id: "IA-002", control_id: "CC6.1", control_name: "Logical Access Security",   requirement: "Enforce password complexity."}
+  - {check_id: "IA-003", control_id: "CC6.1", control_name: "Logical Access Security",   requirement: "Enforce password expiration."}
+  - {check_id: "IA-004", control_id: "CC6.1", control_name: "Logical Access Security",   requirement: "Require NLA for RDP."}
+
+  # === CC6: Encryption ===
+  - {check_id: "CM-007", control_id: "CC6.7", control_name: "Data Transmission/Storage",  requirement: "Encrypt OS drives with BitLocker."}
+  - {check_id: "CM-008", control_id: "CC6.7", control_name: "Data Transmission/Storage",  requirement: "Disable weak TLS protocols via SChannel."}
+  - {check_id: "NH-012", control_id: "CC6.7", control_name: "Data Transmission/Storage",  requirement: "Require SMB signing."}
+  - {check_id: "NH-013", control_id: "CC6.7", control_name: "Data Transmission/Storage",  requirement: "Require strong RDP encryption."}
+  - {check_id: "SR-002", control_id: "CC6.7", control_name: "Data Transmission/Storage",  requirement: "Clear pagefile at shutdown."}
+  - {check_id: "SR-004", control_id: "CC6.7", control_name: "Data Transmission/Storage",  requirement: "Encrypt or disable hibernate file."}
+  - {check_id: "SR-005", control_id: "CC6.7", control_name: "Data Transmission/Storage",  requirement: "Verify BitLocker recovery key is backed up."}
+  - {check_id: "CERT-001", control_id: "CC6.7", control_name: "Data Transmission/Storage",requirement: "Identify expired certificates."}
+  - {check_id: "CERT-002", control_id: "CC6.7", control_name: "Data Transmission/Storage",requirement: "Verify trusted root certificate store."}
+
+  # === CC7: System Operations ===
+  - {check_id: "AU-001", control_id: "CC7.2", control_name: "System Monitoring",          requirement: "Audit logon events."}
+  - {check_id: "AU-002", control_id: "CC7.2", control_name: "System Monitoring",          requirement: "Audit privilege use."}
+  - {check_id: "AU-003", control_id: "CC7.2", control_name: "System Monitoring",          requirement: "Audit account management."}
+  - {check_id: "AU-004", control_id: "CC7.2", control_name: "System Monitoring",          requirement: "Security log minimum 192MB."}
+  - {check_id: "AU-005", control_id: "CC7.2", control_name: "System Monitoring",          requirement: "Verify log retention."}
+  - {check_id: "AU-006", control_id: "CC7.2", control_name: "System Monitoring",          requirement: "Forward logs to central SIEM."}
+  - {check_id: "AU-007", control_id: "CC7.2", control_name: "System Monitoring",          requirement: "Enable advanced audit policy."}
+  - {check_id: "AU-008", control_id: "CC7.2", control_name: "System Monitoring",          requirement: "Deploy Sysmon."}
+  - {check_id: "AU-009", control_id: "CC7.2", control_name: "System Monitoring",          requirement: "Enable Defender advanced detection."}
+  - {check_id: "AU-011", control_id: "CC7.2", control_name: "System Monitoring",          requirement: "Verify NTP time sync."}
+  - {check_id: "AU-013", control_id: "CC7.2", control_name: "System Monitoring",          requirement: "Enable process cmdline auditing."}
+  - {check_id: "AU-014", control_id: "CC7.2", control_name: "System Monitoring",          requirement: "Configure Windows Event Forwarding."}
+  - {check_id: "AU-015", control_id: "CC7.2", control_name: "System Monitoring",          requirement: "Audit removable storage access."}
+  - {check_id: "AU-016", control_id: "CC7.2", control_name: "System Monitoring",          requirement: "Enable object access auditing."}
+  - {check_id: "PS-002", control_id: "CC7.2", control_name: "System Monitoring",          requirement: "Enable PowerShell Script Block Logging."}
+  - {check_id: "PS-003", control_id: "CC7.2", control_name: "System Monitoring",          requirement: "Enable PowerShell Module Logging."}
+  - {check_id: "PS-004", control_id: "CC7.2", control_name: "System Monitoring",          requirement: "Enable PowerShell Transcription Logging."}
+  - {check_id: "SI-001", control_id: "CC7.1", control_name: "Threat Detection",           requirement: "Verify antivirus/EDR running."}
+  - {check_id: "SI-002", control_id: "CC7.1", control_name: "Threat Detection",           requirement: "Verify AV signatures current."}
+  - {check_id: "EM-011", control_id: "CC7.1", control_name: "Threat Detection",           requirement: "Configure ASR rules."}
+
+  # === CC8: Change Management ===
+  - {check_id: "SI-003", control_id: "CC8.1", control_name: "Change Management",          requirement: "Verify OS patch level."}
+  - {check_id: "SI-004", control_id: "CC8.1", control_name: "Change Management",          requirement: "Identify missing security updates."}
+  - {check_id: "SI-005", control_id: "CC8.1", control_name: "Change Management",          requirement: "Verify OS is within support lifecycle."}
+  - {check_id: "SI-006", control_id: "CC8.1", control_name: "Change Management",          requirement: "Identify EOL .NET Framework."}
+  - {check_id: "CM-006", control_id: "CC8.1", control_name: "Change Management",          requirement: "Verify automatic updates configured."}
+
+  # === CC9: Risk Mitigation ===
+  - {check_id: "CM-001", control_id: "CC9.2", control_name: "Risk Mitigation",            requirement: "Disable SMBv1."}
+  - {check_id: "CM-002", control_id: "CC9.2", control_name: "Risk Mitigation",            requirement: "Disable unnecessary services."}
+  - {check_id: "CM-005", control_id: "CC9.2", control_name: "Risk Mitigation",            requirement: "Enable Windows Firewall."}
+  - {check_id: "CM-009", control_id: "CC9.2", control_name: "Risk Mitigation",            requirement: "Deploy LAPS."}
+  - {check_id: "CM-010", control_id: "CC9.2", control_name: "Risk Mitigation",            requirement: "Disable Windows Script Host."}
+  - {check_id: "CM-011", control_id: "CC9.2", control_name: "Risk Mitigation",            requirement: "Implement AppLocker/WDAC."}
+  - {check_id: "NH-001", control_id: "CC9.2", control_name: "Risk Mitigation",            requirement: "Disable LLMNR."}
+  - {check_id: "NH-002", control_id: "CC9.2", control_name: "Risk Mitigation",            requirement: "Disable NetBIOS."}
+  - {check_id: "NH-006", control_id: "CC9.2", control_name: "Risk Mitigation",            requirement: "Restrict null sessions."}
+  - {check_id: "PS-001", control_id: "CC9.2", control_name: "Risk Mitigation",            requirement: "Set PS execution policy."}
+  - {check_id: "PS-005", control_id: "CC9.2", control_name: "Risk Mitigation",            requirement: "Disable PowerShell v2."}
+  - {check_id: "SV-001", control_id: "CC9.2", control_name: "Risk Mitigation",            requirement: "Disable Print Spooler."}
+  - {check_id: "SV-002", control_id: "CC9.2", control_name: "Risk Mitigation",            requirement: "Disable Remote Registry."}
+  - {check_id: "EM-001", control_id: "CC9.2", control_name: "Risk Mitigation",            requirement: "Enable DEP."}
+  - {check_id: "EM-002", control_id: "CC9.2", control_name: "Risk Mitigation",            requirement: "Enable ASLR."}
+  - {check_id: "EM-008", control_id: "CC9.2", control_name: "Risk Mitigation",            requirement: "Enable Secure Boot."}
+  - {check_id: "EM-009", control_id: "CC9.2", control_name: "Risk Mitigation",            requirement: "Configure UAC."}
+  - {check_id: "SR-001", control_id: "A1.2", control_name: "Availability",                requirement: "Verify VSS restore points enabled."}
+  - {check_id: "SR-005", control_id: "A1.2", control_name: "Availability",                requirement: "Verify BitLocker recovery key backed up."}
+  - {check_id: "CIS-001", control_id: "CC9.2", control_name: "Risk Mitigation",           requirement: "Verify CIS Level 1 baseline."}

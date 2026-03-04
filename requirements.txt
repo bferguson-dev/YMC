@@ -1,0 +1,17 @@
+# Core WinRM library — agentless remote PowerShell execution against Windows targets
+pywinrm==0.4.3
+
+# HTTP transport used by pywinrm
+requests==2.32.4
+
+# Kerberos authentication support (optional — required only for kerberos transport)
+requests-kerberos==0.15.0
+
+# YAML parsing — config files, compliance profile YAMLs
+pyyaml==6.0.1
+
+# HTML report templating
+jinja2==3.1.6
+
+# Cross-platform terminal colour output (ANSI codes on Linux/macOS, Windows ANSI on Win10+)
+colorama==0.4.6

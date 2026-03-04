@@ -1,0 +1,58 @@
+# =============================================================================
+# Compliance Evidence Collector — Hosts CSV Template
+# =============================================================================
+#
+# Copy this file, remove these comment lines, fill in your targets, and run:
+#   python main.py --csv hosts.csv --profile nist_800_53
+#
+# COMMENT LINES: Any line starting with # is ignored.
+# BLANK LINES:   Blank lines are ignored.
+#
+# OPTIONAL METADATA ROW (must come before the header row if used):
+#   The first non-comment, non-blank line may be a domain metadata row in
+#   the format:   domain,<your-dns-suffix>
+#   This sets the default DNS suffix for all bare hostnames in this file.
+#   CLI --domain flag overrides this value.
+#   Example:  domain,corp.local
+#
+# COLUMNS (all except 'host' are optional):
+#
+#   host      REQUIRED. Hostname, FQDN, or IP address of the target.
+#             Bare hostnames (no dots) get the domain suffix appended.
+#             FQDNs and IPs are used exactly as written.
+#             Examples: webserver  |  web01.corp.local  |  192.168.1.50
+#
+#   username  Username for WinRM authentication to this specific host.
+#             Leave blank to use --username CLI flag or settings.yaml default.
+#             Formats: administrator  |  DOMAIN\user  |  user@domain.com
+#
+#   label     Friendly display name for this host. Used in:
+#               - Progress display during the scan
+#               - Report filenames  (e.g. production_web_server_nist_800_53.html)
+#               - Summary report host table
+#             If blank, the value in 'host' is used as the label.
+#             Example: Production Web Server
+#
+#   port      WinRM port for this host. Default: 5985 (HTTP).
+#             Use 5986 for HTTPS/SSL WinRM.
+#             Leave blank to use the default.
+#
+#   notes     Free-text notes for your reference. Not used by the tool.
+#             Example: Primary web server, hosts customer portal
+#
+# CREDENTIALS:
+#   Passwords are NEVER stored in this file. They are collected at runtime via:
+#     1. COLLECTOR_PASSWORD_<USERNAME> environment variable
+#     2. COLLECTOR_PASSWORD environment variable
+#     3. Interactive prompt (once per unique username)
+#
+# =============================================================================
+
+# Optional: uncomment and set your DNS domain suffix
+# domain,corp.local
+
+host,username,label,port,notes
+# Add your targets below. Remove the leading # from each line you want active.
+# webserver01,,Production Web Server,,Primary web tier
+# db01.corp.local,svc-audit,Production Database,5985,SQL Server 2022
+# 192.168.1.52,,DR Web Server,5986,HTTPS WinRM - DR site has no DNS

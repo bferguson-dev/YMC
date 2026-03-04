@@ -1,0 +1,72 @@
+# HIPAA Security Rule Compliance Profile
+# -----------------------------------------
+profile_name: "HIPAA Security Rule"
+profile_id: "HIPAA"
+version: "45 CFR Part 164"
+description: >
+  Health Insurance Portability and Accountability Act Security Rule.
+  Required for covered entities and business associates handling
+  Protected Health Information (PHI). Focus on CIA of ePHI.
+
+checks:
+
+  # === 164.308 Administrative Safeguards ===
+  - {check_id: "AC-001", control_id: "164.308(a)(3)", control_name: "Workforce Access",  requirement: "Identify inactive accounts with access to ePHI systems."}
+  - {check_id: "AC-003", control_id: "164.308(a)(3)", control_name: "Workforce Access",  requirement: "Disable Guest account on ePHI systems."}
+  - {check_id: "AC-005", control_id: "164.308(a)(3)", control_name: "Workforce Access",  requirement: "Review local administrators on ePHI systems."}
+  - {check_id: "AC-009", control_id: "164.308(a)(3)", control_name: "Workforce Access",  requirement: "Review privileged group membership."}
+  - {check_id: "AU-001", control_id: "164.308(a)(1)", control_name: "Security Management",requirement: "Audit all logon events on ePHI systems."}
+  - {check_id: "AU-002", control_id: "164.308(a)(1)", control_name: "Security Management",requirement: "Audit privilege use events."}
+  - {check_id: "AU-003", control_id: "164.308(a)(1)", control_name: "Security Management",requirement: "Audit account management events."}
+  - {check_id: "AU-006", control_id: "164.308(a)(1)", control_name: "Security Management",requirement: "Forward audit logs to central SIEM."}
+  - {check_id: "AU-007", control_id: "164.308(a)(1)", control_name: "Security Management",requirement: "Enable advanced audit policy."}
+  - {check_id: "AU-008", control_id: "164.308(a)(1)", control_name: "Security Management",requirement: "Deploy Sysmon for enhanced monitoring on ePHI systems."}
+  - {check_id: "AU-009", control_id: "164.308(a)(1)", control_name: "Security Management",requirement: "Enable Defender advanced detection."}
+  - {check_id: "AU-013", control_id: "164.308(a)(1)", control_name: "Security Management",requirement: "Capture process creation command line arguments."}
+  - {check_id: "AU-014", control_id: "164.308(a)(1)", control_name: "Security Management",requirement: "Configure Windows Event Forwarding."}
+  - {check_id: "AU-015", control_id: "164.308(a)(1)", control_name: "Security Management",requirement: "Audit removable storage access."}
+  - {check_id: "SI-001", control_id: "164.308(a)(5)", control_name: "Security Awareness", requirement: "Verify antivirus/EDR is running on ePHI systems."}
+  - {check_id: "SI-002", control_id: "164.308(a)(5)", control_name: "Security Awareness", requirement: "Verify antivirus definitions are current."}
+
+  # === 164.310 Physical Safeguards ===
+  - {check_id: "AC-008", control_id: "164.310(b)",    control_name: "Workstation Use",   requirement: "Enforce screen lock / session timeout."}
+  - {check_id: "CM-007", control_id: "164.310(d)(1)", control_name: "Device Controls",   requirement: "Encrypt workstation drives with BitLocker."}
+  - {check_id: "SR-004", control_id: "164.310(d)(1)", control_name: "Device Controls",   requirement: "Secure hibernate file — contains ePHI from memory."}
+  - {check_id: "AU-015", control_id: "164.310(d)(1)", control_name: "Device Controls",   requirement: "Audit removable media access."}
+  - {check_id: "CM-016", control_id: "164.310(d)(1)", control_name: "Device Controls",   requirement: "Disable AutoPlay on removable media."}
+
+  # === 164.312 Technical Safeguards ===
+  - {check_id: "IA-001", control_id: "164.312(a)(2)", control_name: "Authentication",    requirement: "Enforce strong password policy (length 14+)."}
+  - {check_id: "IA-002", control_id: "164.312(a)(2)", control_name: "Authentication",    requirement: "Enforce password complexity."}
+  - {check_id: "IA-003", control_id: "164.312(a)(2)", control_name: "Authentication",    requirement: "Enforce password expiration policy."}
+  - {check_id: "IA-004", control_id: "164.312(a)(2)", control_name: "Authentication",    requirement: "Require NLA for all Remote Desktop connections."}
+  - {check_id: "AC-006", control_id: "164.312(a)(2)", control_name: "Authentication",    requirement: "Configure account lockout policy."}
+  - {check_id: "AC-011", control_id: "164.312(a)(2)", control_name: "Authentication",    requirement: "Enable LSA Protection against credential dumping."}
+  - {check_id: "AC-012", control_id: "164.312(a)(2)", control_name: "Authentication",    requirement: "Enable Credential Guard."}
+  - {check_id: "AC-013", control_id: "164.312(a)(2)", control_name: "Authentication",    requirement: "No accounts with password set to never expire."}
+  - {check_id: "AC-014", control_id: "164.312(a)(2)", control_name: "Authentication",    requirement: "All accounts must require a password."}
+  - {check_id: "AC-018", control_id: "164.312(a)(2)", control_name: "Authentication",    requirement: "Disable WDigest — prevents plaintext credential storage."}
+  - {check_id: "CM-008", control_id: "164.312(e)(1)", control_name: "Transmission Security",requirement: "Enforce TLS — disable weak protocols via SChannel."}
+  - {check_id: "NH-012", control_id: "164.312(e)(1)", control_name: "Transmission Security",requirement: "Require SMB signing to prevent MITM."}
+  - {check_id: "NH-013", control_id: "164.312(e)(1)", control_name: "Transmission Security",requirement: "Require strong RDP encryption."}
+  - {check_id: "AU-004", control_id: "164.312(b)",    control_name: "Audit Controls",    requirement: "Security log minimum size 192MB."}
+  - {check_id: "AU-005", control_id: "164.312(b)",    control_name: "Audit Controls",    requirement: "Verify log retention is configured."}
+  - {check_id: "AU-011", control_id: "164.312(b)",    control_name: "Audit Controls",    requirement: "Verify NTP time synchronization."}
+  - {check_id: "AC-016", control_id: "164.312(a)(1)", control_name: "Access Control",    requirement: "Configure logon banner for ePHI systems."}
+  - {check_id: "AC-019", control_id: "164.312(a)(1)", control_name: "Access Control",    requirement: "Restrict null session / anonymous access."}
+  - {check_id: "CM-005", control_id: "164.312(a)(1)", control_name: "Access Control",    requirement: "Windows Firewall enabled on all profiles."}
+  - {check_id: "NH-001", control_id: "164.312(a)(1)", control_name: "Access Control",    requirement: "Disable LLMNR — credential theft risk."}
+  - {check_id: "NH-002", control_id: "164.312(a)(1)", control_name: "Access Control",    requirement: "Disable NetBIOS over TCP/IP."}
+
+  # === Integrity / SI ===
+  - {check_id: "SI-003", control_id: "164.308(a)(5)", control_name: "Security Awareness", requirement: "Verify OS patch level on ePHI systems."}
+  - {check_id: "SI-004", control_id: "164.308(a)(5)", control_name: "Security Awareness", requirement: "Identify missing security patches."}
+  - {check_id: "SI-005", control_id: "164.308(a)(5)", control_name: "Security Awareness", requirement: "Verify OS is within Microsoft support lifecycle."}
+  - {check_id: "CM-006", control_id: "164.308(a)(5)", control_name: "Security Awareness", requirement: "Verify automatic updates are configured."}
+  - {check_id: "EM-008", control_id: "164.312(c)(1)", control_name: "Integrity",          requirement: "Enable Secure Boot."}
+  - {check_id: "EM-009", control_id: "164.312(a)(1)", control_name: "Access Control",    requirement: "Configure UAC."}
+  - {check_id: "SR-001", control_id: "164.312(c)(1)", control_name: "Integrity",          requirement: "Verify VSS restore points are enabled."}
+  - {check_id: "SR-005", control_id: "164.312(c)(1)", control_name: "Integrity",          requirement: "Verify BitLocker recovery key is backed up."}
+  - {check_id: "PS-002", control_id: "164.308(a)(1)", control_name: "Security Management",requirement: "Enable PowerShell Script Block Logging."}
+  - {check_id: "PS-004", control_id: "164.308(a)(1)", control_name: "Security Management",requirement: "Enable PowerShell Transcription Logging."}
+  - {check_id: "CERT-001", control_id: "164.312(e)(1)", control_name: "Transmission Security",requirement: "Identify expired certificates."}
