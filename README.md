@@ -1,249 +1,290 @@
 # YMC
 
-YMC is an automated Windows Server compliance scanner. It connects remotely via WinRM, executes checks against hardened security controls, and produces timestamped audit-ready reports.
-
-Built by an infrastructure engineer who has done this work manually, screenshot by screenshot. YMC automates that process and produces evidence output aligned to major audit frameworks.
+YMC is an agentless Windows Server compliance scanner. It connects over WinRM, runs security checks remotely, and generates audit-ready reports with evidence.
 
 ---
 
-## Supported Compliance Frameworks
+## Current Capability Snapshot
 
-| Profile File | Framework | Version |
-|---|---|---|
-| `nist_800_53.yaml` | NIST SP 800-53 | Rev 5 |
-| `pci_dss_4.yaml` | PCI DSS | 4.0 |
-| `soc2.yaml` | SOC 2 Trust Services Criteria | 2022 |
-| `hipaa.yaml` | HIPAA Security Rule | 45 CFR Part 164 |
-| `cmmc_2.yaml` | CMMC | 2.0 Level 2 |
-| `iso_27001.yaml` | ISO/IEC 27001 | 2022 |
+- Registered checks: **109** (runtime registry)
+- Windows control families: **13**
+- Framework profiles included: **6**
+- Report formats: **HTML**, **JSON**, or both
+- Scan targets: single host, comma-separated host list, or CSV input
 
-Every check maps to all six frameworks simultaneously. Adding a new framework requires only a new YAML profile file — no code changes.
+### Windows control families currently implemented
 
----
+| Family | Check Count |
+|---|---:|
+| access_control | 10 |
+| audit_logging | 16 |
+| baseline | 1 |
+| certificates | 2 |
+| config_management | 16 |
+| credential_auth | 9 |
+| exploit_mitigations | 11 |
+| identity_auth | 2 |
+| network_hardening | 13 |
+| powershell_security | 6 |
+| services | 7 |
+| storage_recovery | 5 |
+| system_integrity | 6 |
 
-## Checks Implemented (27 checks across 4 control families)
+### Profile coverage
 
-### Access Control
-- Inactive accounts (>90 days)
-- Guest account disabled
-- Built-in Administrator renamed
-- Local Administrators group membership review
-- Account lockout policy (threshold + duration)
-- Screen saver / session lock
-
-### Identification and Authentication
-- Password minimum length
-- Password complexity
-- Password maximum age
-- RDP Network Level Authentication (NLA)
-
-### Audit and Logging
-- Audit policy: logon events (success + failure)
-- Audit policy: privilege use
-- Audit policy: account management
-- Security event log minimum size (192MB)
-- Event log retention configuration
-- Remote log forwarding (WEF / Splunk / Elastic / NXLog)
-
-### Configuration Management and System Integrity
-- SMBv1 disabled
-- Unnecessary services (Telnet, FTP, Remote Registry, etc.)
-- Administrative shares review
-- AutoRun/AutoPlay disabled
-- Windows Firewall (all profiles)
-- Automatic updates / patch management
-- Antivirus/EDR status and definition currency
-- OS patch level and last update date
+| Profile File | Framework | Version | Checks in Profile |
+|---|---|---|---:|
+| `nist_800_53.yaml` | NIST SP 800-53 | Rev 5 | 109 |
+| `pci_dss_4.yaml` | PCI DSS | 4.0 | 81 |
+| `soc2.yaml` | SOC 2 Trust Services Criteria | 2022 | 77 |
+| `hipaa.yaml` | HIPAA Security Rule | 45 CFR Part 164 | 53 |
+| `cmmc_2.yaml` | CMMC | 2.0 Level 2 | 75 |
+| `iso_27001.yaml` | ISO/IEC 27001 | 2022 | 76 |
 
 ---
 
 ## Architecture
 
-```
-ymc/
-├── main.py                    # CLI entry point
-├── config/
-│   └── settings.yaml          # Thresholds and connection settings
-├── profiles/                  # One YAML per compliance framework
-│   ├── nist_800_53.yaml
-│   ├── pci_dss_4.yaml
-│   ├── soc2.yaml
-│   ├── hipaa.yaml
-│   ├── cmmc_2.yaml
-│   └── iso_27001.yaml
-├── connector/
-│   └── winrm_connector.py     # WinRM session management
+```text
+compliance-collector/
+├── main.py                     # CLI entrypoint and scan orchestration
+├── check.sh                    # Local quality gate script
 ├── checks/
+│   ├── registry.py             # Decorator-based check registry
 │   └── windows/
-│       ├── access_control.py
-│       ├── audit_logging.py
-│       └── config_management.py   # Also contains IA and SI checks
+│       ├── access_control/
+│       ├── audit_logging/
+│       ├── baseline/
+│       ├── certificates/
+│       ├── config_management/
+│       ├── credential_auth/
+│       ├── exploit_mitigations/
+│       ├── identity_auth/
+│       ├── network_hardening/
+│       ├── powershell_security/
+│       ├── services/
+│       ├── storage_recovery/
+│       ├── system_integrity/
+│       └── common.py
+├── connector/
+│   └── winrm_connector.py      # WinRM session + command execution
 ├── engine/
-│   ├── evidence.py            # CheckResult / HostScanResult dataclasses
-│   └── runner.py              # Orchestration engine
-└── reporters/
-    ├── base_reporter.py       # Abstract base — extend to add new formats
-    ├── html_reporter.py       # Audit-ready HTML output
-    └── json_reporter.py       # Machine-readable JSON output
+│   ├── runner.py               # Profile loading, check execution, dedup logic
+│   ├── evidence.py             # CheckResult/HostScanResult models
+│   └── registry.py
+├── reporters/
+│   ├── base_reporter.py
+│   ├── html_reporter.py
+│   └── json_reporter.py
+├── profiles/                   # Framework mapping YAMLs
+├── config/
+│   ├── settings.yaml           # Program defaults
+│   └── profiles/default.yaml   # Named config profile example
+├── docs/
+│   ├── environment_variables.md
+│   ├── settings_reference.md
+│   ├── hosts_template.csv
+│   └── hosts_example.csv
+└── tests/
+    └── test_cli_smoke.py
 ```
 
-**Key design decisions:**
+### Design details
 
-- **Check once, map to all frameworks** — each PowerShell check runs once; YAML profiles handle the control ID mapping per framework
-- **Agentless** — uses WinRM (port 5985/5986). No software installed on target systems
-- **Credential hygiene** — passwords are never stored, logged, or written to disk. Interactive prompt via `getpass` or `COLLECTOR_PASSWORD` environment variable for pipelines
-- **Extensible reporters** — all reporters inherit from `BaseReporter`. Adding PDF, CSV, or styled HTML output requires one new file
-- **Audit chain of custody** — every check result captures hostname, IP, UTC timestamp, tool version, and executing username — the same information a timestamped screenshot would provide
+- **Dynamic check discovery**: `engine/runner.py` imports all check modules under `checks/` at runtime.
+- **Decorator registration**: each check function uses `@register_check(...)` from `checks/registry.py`.
+- **Dedup support**: related check IDs can share one execution result via `dedup_group`.
+- **Framework mapping via YAML**: checks are mapped to control IDs in `profiles/*.yaml`; adding mappings does not require runner changes.
+- **Agentless operation**: no software is installed on target Windows hosts.
 
 ---
 
 ## Requirements
 
-**Controller machine** (where you run the tool):
+Controller machine:
 - Python 3.10+
-- `pip install -r requirements.txt`
+- Access to target hosts over WinRM
 
-**Target Windows Server** (machines being checked):
-- WinRM enabled (HTTP port 5985 or HTTPS 5986)
-- Account with remote management rights
+Install dependencies:
 
-### Enable WinRM on target (run as Administrator):
-```powershell
-winrm quickconfig -y
-# Allow HTTP (if not using HTTPS):
-winrm set winrm/config/client/auth '@{Basic="true"}'
-winrm set winrm/config/service/auth '@{Basic="true"}'
-# Allow unencrypted (for HTTP only — use HTTPS in production):
-winrm set winrm/config/service '@{AllowUnencrypted="true"}'
+```bash
+pip install -r requirements.txt
 ```
 
-For HTTPS (recommended in production), configure WinRM with a certificate and use port 5986.
+Target Windows hosts:
+- WinRM enabled (5985 HTTP or 5986 HTTPS)
+- Account with permissions to read security-relevant configuration and logs
 
 ---
 
 ## Usage
 
+List compliance profiles:
+
 ```bash
-# Install dependencies
-pip install -r requirements.txt
-
-# List available compliance profiles
 python main.py --list-profiles
+```
 
-# Run a NIST 800-53 scan (HTML report)
-python main.py --host 192.168.1.10 --username DOMAIN\\auditor --profile nist_800_53
+List named config profiles:
 
-# Run a PCI DSS scan and generate both HTML and JSON
-python main.py --host WEBSERVER01 --username administrator --profile pci_dss_4 --format both
+```bash
+python main.py --list-configs
+```
 
-# Run via environment variable (for automation pipelines)
-export COLLECTOR_PASSWORD="your_password"
-python main.py --host 192.168.1.10 --username DOMAIN\\svcaccount --profile hipaa
+Single host:
+
+```bash
+python main.py --host web01.corp.local --username CORP\\auditor --profile nist_800_53
+```
+
+Multiple hosts (comma-separated):
+
+```bash
+python main.py --host web01,db01,dc01 --domain corp.local --username CORP\\auditor --profile pci_dss_4
+```
+
+CSV-driven scan:
+
+```bash
+python main.py --csv docs/hosts_example.csv --profile iso_27001 --format both
+```
+
+Custom output directory:
+
+```bash
+python main.py --host web01 --username CORP\\auditor --output-dir ./reports --format both
 ```
 
 ### Exit codes
+
 | Code | Meaning |
-|------|---------|
-| 0 | Scan completed, no failures |
-| 1 | Scan could not complete (connection error, bad profile) |
-| 2 | Scan completed, one or more FAIL findings |
+|---|---|
+| 0 | Scan completed with no failing findings |
+| 1 | Scan could not complete (configuration/connection/runtime error) |
+| 2 | Scan completed with one or more FAIL findings |
 
 ---
 
-## Report Output
+## Configuration
 
-Reports are written to `./reports/` by default.
+Resolution order (highest to lowest):
+1. CLI flags
+2. Environment variables (`COLLECTOR_*`)
+3. Named config profile (`--config`)
+4. Personal settings (`~/.ymc/settings.yaml`)
+5. Program defaults (`config/settings.yaml`)
 
-**HTML report** — human-readable, audit-ready. Contains:
-- Full chain of custody header (host, IP, timestamp, profile, executing account)
-- Summary statistics with compliance percentage
-- Per-check results organized by control family
-- Click-to-expand raw evidence for each check (the PowerShell output captured from the remote system)
-- Remediation guidance for failed checks
-
-**JSON report** — machine-readable. Suitable for import into SIEM, GRC platforms, or ticketing systems.
-
----
-
-## Adding a New Compliance Framework
-
-1. Create `profiles/your_framework.yaml` following the existing profile structure
-2. Map each `check_id` to the appropriate control number in your framework
-3. That's it — no code changes required
-
-## Adding a New Check
-
-1. Write the check function in the appropriate `checks/windows/` module
-2. Register it in `engine/runner.py` under `CHECK_REGISTRY`
-3. Add the `check_id` to any profile YAML files where it applies
-
-## Adding a New Output Format
-
-1. Create `reporters/your_reporter.py`
-2. Inherit from `BaseReporter` and implement `generate()`
-3. Wire it into `main.py`
+Reference docs:
+- [docs/environment_variables.md](docs/environment_variables.md)
+- [docs/settings_reference.md](docs/settings_reference.md)
 
 ---
 
-## Roadmap
+## Testing And Quality Gates
 
-- [ ] Multi-host scanning (CSV input of target hosts)
-- [ ] Linux/RHEL checks via SSH (Paramiko)
-- [ ] AWS cloud resource checks (boto3)
-- [ ] Azure cloud resource checks (azure-mgmt)
-- [ ] PDF report output
-- [ ] CSV/Excel output for GRC platform import
-- [ ] STIG SCAP import for automated benchmark mapping
-- [ ] Drift detection mode (compare against previous scan baseline)
-- [ ] Ansible integration for automated remediation of failed checks
+### Automated tests currently in repo
+
+- `tests/test_cli_smoke.py`
+- Smoke coverage:
+  - `python main.py --help`
+  - `python main.py --list-profiles`
+  - `python main.py --list-configs`
+
+Run tests:
+
+```bash
+python -m pytest -q
+```
+
+### `check.sh` quality gate
+
+`check.sh` runs the project gate sequence:
+1. `ruff format`
+2. `ruff check` (auto-fix then enforce)
+3. `bandit` (policy threshold: medium+ severity/confidence)
+4. `pip-audit` (with network-failure handling)
+5. `pytest`
+
+Run:
+
+```bash
+./check.sh
+```
 
 ---
-
-## Security Notes
-
-- WinRM HTTP (port 5985) transmits credentials and results unencrypted. Use WinRM HTTPS (port 5986) in production environments
-- The service account used for scanning requires read-only access to WMI, registry, and local security policy — it does not need to be a local administrator on target systems (though some checks require elevated read access)
-- Credentials are held in memory only for the duration of the scan session and are not persisted anywhere
 
 ## Secret Scanning (Gitleaks)
 
 YMC includes a tracked pre-commit hook at `.githooks/pre-commit` that runs `gitleaks` against staged changes.
 
 One-time setup (inside this repo):
+
 ```bash
 git config core.hooksPath .githooks
 chmod +x .githooks/pre-commit
 ```
 
-Install `gitleaks` on your system:
+Install `gitleaks`:
 
 Ubuntu/Debian:
+
 ```bash
-sudo apt-get install -y gitleaks
+sudo apt-get update && sudo apt-get install -y gitleaks
 ```
 
-macOS (Homebrew):
+macOS:
+
 ```bash
 brew install gitleaks
 ```
 
-Verify installation and hook wiring:
+Verify:
+
 ```bash
 gitleaks version
 git config --get core.hooksPath
 ```
 
-Expected hook path output:
-```text
-.githooks
+Manual scans:
+
+```bash
+gitleaks detect --source . --config .gitleaks.toml --redact --verbose
+gitleaks protect --staged --config .gitleaks.toml --redact --verbose
 ```
 
-How to test the hook:
-1. Stage any file change.
-2. Run `git commit -m "test hook"`.
-3. The hook should run `gitleaks` before the commit is created.
+---
 
-If `gitleaks` is missing, commits will be blocked with an error until it is installed.
+## Extending YMC
+
+### Add a new framework profile
+
+1. Create `profiles/<framework>.yaml`.
+2. Map `check_id` values to framework control IDs.
+3. Run `python main.py --list-profiles` to confirm it is discoverable.
+
+### Add a new check
+
+1. Add a new module under the relevant folder in `checks/windows/`.
+2. Register function(s) with `@register_check("XX-000", ...)`.
+3. Add the check ID to one or more `profiles/*.yaml`.
+4. Run `python -m pytest -q` and `./check.sh`.
+
+### Add a reporter
+
+1. Create `reporters/<new_reporter>.py` inheriting from `BaseReporter`.
+2. Implement `generate()`.
+3. Wire selection into `main.py` format handling.
+
+---
+
+## Roadmap
+
+- [ ] Linux/RHEL checks via SSH
+- [ ] Cloud checks (AWS/Azure)
+- [ ] PDF output
+- [ ] CSV/Excel export for GRC import
+- [ ] Drift/baseline comparison mode
+- [ ] Automated remediation integration
 
 ---
 
