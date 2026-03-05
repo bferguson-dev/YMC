@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR="$(git rev-parse --show-toplevel)"
+cd "$ROOT_DIR"
+
+# Skip if nothing is staged.
+if [[ -z "$(git diff --cached --name-only)" ]]; then
+  exit 0
+fi
+
+if ! command -v gitleaks >/dev/null 2>&1; then
+  echo "ERROR: gitleaks is not installed."
+  echo "Install it, then retry the commit."
+  echo "Ubuntu example: sudo apt-get install -y gitleaks"
+  exit 1
+fi
+
+CONFIG_FILE="$ROOT_DIR/.gitleaks.toml"
+
+# Prefer staged-only scanning when supported by installed gitleaks version.
+if gitleaks protect --help >/dev/null 2>&1; then
+  exec gitleaks protect --staged --redact --config "$CONFIG_FILE" --verbose
+fi
+
+if gitleaks git --help >/dev/null 2>&1; then
+  exec gitleaks git --staged --redact --config "$CONFIG_FILE" --verbose
+fi
+
+echo "ERROR: Installed gitleaks does not support staged scanning commands."
+echo "Please install gitleaks v8+."
+exit 1

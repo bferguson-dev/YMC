@@ -30,3 +30,6 @@ Thumbs.db
 
 # Windows metadata sidecars
 *:Zone.Identifier
+
+# Local Codex/session handoff notes (never commit)
+.codex-local-notes.md

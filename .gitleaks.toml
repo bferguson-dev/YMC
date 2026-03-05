@@ -1,0 +1,8 @@
+title = "YMC Gitleaks Config"
+
+[allowlist]
+description = "Global allowlist for false positives"
+paths = [
+  '''^docs/hosts_example\.csv$''',
+  '''^docs/hosts_template\.csv$''',
+]

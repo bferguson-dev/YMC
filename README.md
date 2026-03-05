@@ -250,4 +250,3 @@ If `gitleaks` is missing, commits will be blocked with an error until it is inst
 ## License
 
 MIT
-test
