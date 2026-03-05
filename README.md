@@ -205,8 +205,49 @@ Reports are written to `./reports/` by default.
 - The service account used for scanning requires read-only access to WMI, registry, and local security policy — it does not need to be a local administrator on target systems (though some checks require elevated read access)
 - Credentials are held in memory only for the duration of the scan session and are not persisted anywhere
 
+## Secret Scanning (Gitleaks)
+
+YMC includes a tracked pre-commit hook at `.githooks/pre-commit` that runs `gitleaks` against staged changes.
+
+One-time setup (inside this repo):
+```bash
+git config core.hooksPath .githooks
+chmod +x .githooks/pre-commit
+```
+
+Install `gitleaks` on your system:
+
+Ubuntu/Debian:
+```bash
+sudo apt-get install -y gitleaks
+```
+
+macOS (Homebrew):
+```bash
+brew install gitleaks
+```
+
+Verify installation and hook wiring:
+```bash
+gitleaks version
+git config --get core.hooksPath
+```
+
+Expected hook path output:
+```text
+.githooks
+```
+
+How to test the hook:
+1. Stage any file change.
+2. Run `git commit -m "test hook"`.
+3. The hook should run `gitleaks` before the commit is created.
+
+If `gitleaks` is missing, commits will be blocked with an error until it is installed.
+
 ---
 
 ## License
 
 MIT
+test
