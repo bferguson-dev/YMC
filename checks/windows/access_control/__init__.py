@@ -79,7 +79,9 @@ Write-Output "WMI OS description  : $wmi"
 
         if not desc and not wmi_desc:
             result.status = STATUS_PASS
-            result.finding = "Computer description field is empty â€” no information disclosure risk."
+            result.finding = (
+                "Computer description field is empty - no information disclosure risk."
+            )
             result.remediation = ""
         elif flagged:
             result.status = STATUS_WARNING

@@ -75,11 +75,11 @@ Write-Output "NullSessionPipes          : $pipes"
                     pass
         if everyone == 1:
             findings.append(
-                "EveryoneIncludesAnonymous=1 â€” anonymous users have Everyone group permissions"
+                "EveryoneIncludesAnonymous=1 - anonymous users have Everyone group permissions"
             )
         if restrict == 0 or restrict is None:
             findings.append(
-                f"RestrictAnonymous={restrict} â€” anonymous enumeration not restricted"
+                f"RestrictAnonymous={restrict} - anonymous enumeration not restricted"
             )
         if findings:
             result.status = STATUS_FAIL

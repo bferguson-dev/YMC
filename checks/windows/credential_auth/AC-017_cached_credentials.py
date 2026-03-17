@@ -66,11 +66,11 @@ Write-Output "CachedLogonsCount: $val  (0=disabled, recommended 0-2)"
             result.remediation = "Set CachedLogonsCount to 0 or a low value (1-2 max) via GPO or registry."
         elif val <= 2:
             result.status = STATUS_PASS
-            result.finding = f"Cached domain credentials count is {val} â€” within the recommended limit of 0-2."
+            result.finding = f"Cached domain credentials count is {val} - within the recommended limit of 0-2."
             result.remediation = ""
         else:
             result.status = STATUS_FAIL
-            result.finding = f"Cached domain credentials count is {val} â€” exceeds recommended maximum of 2."
+            result.finding = f"Cached domain credentials count is {val} - exceeds recommended maximum of 2."
             result.remediation = (
                 "Reduce via GPO: Computer Configuration > Windows Settings > Security Settings > "
                 "Local Policies > Security Options > "

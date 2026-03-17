@@ -2,7 +2,7 @@
 """
 main.py
 -------
-YMC Ã¢â‚¬â€ CLI entry point and scan orchestrator.
+YMC - CLI entry point and scan orchestrator.
 
 Responsibilities
 ----------------
@@ -75,7 +75,7 @@ from reporters.html_reporter import HtmlReporter
 from reporters.json_reporter import JsonReporter
 
 # ---------------------------------------------------------------------------
-# Colorama init Ã¢â‚¬â€ handles Windows ANSI terminal codes transparently.
+# Colorama init - handles Windows ANSI terminal codes transparently.
 # On Linux/macOS it's a passthrough no-op.
 # ---------------------------------------------------------------------------
 colorama_init(autoreset=True)
@@ -91,7 +91,7 @@ CONFIG_DIR = INSTALL_DIR / "config"  # program config directory
 DEFAULT_CFG = CONFIG_DIR / "settings.yaml"  # shipped program defaults
 NAMED_CFG_DIR = CONFIG_DIR / "profiles"  # named config profiles
 
-# User-level settings Ã¢â‚¬â€ personal overrides that live outside the install dir
+# User-level settings - personal overrides that live outside the install dir
 USER_CFG_DIR = Path.home() / ".ymc"
 USER_CFG_FILE = USER_CFG_DIR / "settings.yaml"
 USER_PROFILES_DIR = USER_CFG_DIR / "profiles"
@@ -200,7 +200,7 @@ def load_named_profile(name: str) -> dict:
 def _get(key: str, section: str, *dicts: dict, default=None):
     """
     Retrieves a value from the first dict that contains it under section.key.
-    Used to layer config sources Ã¢â‚¬â€ pass in highest-priority dict first.
+    Used to layer config sources - pass in highest-priority dict first.
     """
     for d in dicts:
         section_data = d.get(section, {}) or {}
@@ -252,7 +252,7 @@ def resolve_settings(args: argparse.Namespace) -> dict:
     prog_defaults = load_program_defaults()
     user_settings = load_user_settings()
 
-    # Named config profile Ã¢â‚¬â€ from --config flag, env var, or settings cascade
+    # Named config profile - from --config flag, env var, or settings cascade
     config_name = (
         args.config
         or os.environ.get("COLLECTOR_CONFIG")
@@ -279,7 +279,7 @@ def resolve_settings(args: argparse.Namespace) -> dict:
     # ---------------------------------------------------------------------------
     settings = {}
 
-    # Scan targets Ã¢â‚¬â€ handled by the caller, not resolved here
+    # Scan targets - handled by the caller, not resolved here
     settings["domain"] = resolve(
         getattr(args, "domain", None), "COLLECTOR_DOMAIN", "domain", default=""
     )
@@ -329,7 +329,7 @@ def resolve_settings(args: argparse.Namespace) -> dict:
     )
     settings["no_banner"] = _coerce_bool(settings["no_banner"], "COLLECTOR_NO_BANNER")
 
-    # Connection settings Ã¢â‚¬â€ from connection section
+    # Connection settings - from connection section
     settings["winrm_transport"] = resolve(
         None,
         "COLLECTOR_WINRM_TRANSPORT",
@@ -358,7 +358,7 @@ def resolve_settings(args: argparse.Namespace) -> dict:
         "COLLECTOR_READ_TIMEOUT",
     )
 
-    # Evidence thresholds Ã¢â‚¬â€ from evidence section
+    # Evidence thresholds - from evidence section
     settings["inactive_account_threshold_days"] = _coerce_int(
         resolve(
             None,
@@ -457,7 +457,7 @@ def resolve_output_dir(output_dir_setting: str) -> Path:
     If the user specified an explicit path, use it.
     Otherwise use the platform-appropriate default Documents folder.
 
-    The returned path is the ROOT Ã¢â‚¬â€ the scan subfolder (scan_YYYYMMDD_HHMMSS)
+    The returned path is the ROOT - the scan subfolder (scan_YYYYMMDD_HHMMSS)
     is created inside it by create_scan_folder().
     """
     if output_dir_setting:
@@ -471,7 +471,7 @@ def resolve_output_dir(output_dir_setting: str) -> Path:
         # On Windows, Documents always exists under the user profile
         base = documents
     else:
-        # Linux / macOS Ã¢â‚¬â€ use Documents if it exists, otherwise home directly
+        # Linux / macOS - use Documents if it exists, otherwise home directly
         base = documents if documents.exists() else home
 
     return base / "Compliance Scans"
@@ -481,7 +481,7 @@ def create_scan_folder(output_root: Path, timestamp_fmt: str) -> Path:
     """
     Creates a uniquely timestamped folder for this scan run.
 
-    Every scan Ã¢â‚¬â€ whether against one host or fifty Ã¢â‚¬â€ gets its own folder so
+    Every scan - whether against one host or fifty - gets its own folder so
     results are never overwritten and are easy to locate later.
 
     Parameters
@@ -772,7 +772,7 @@ def collect_passwords(targets: list[dict]) -> dict[str, str]:
             print(
                 f"\n{Fore.YELLOW}Password required for: {Fore.CYAN}{username}{Style.RESET_ALL}"
             )
-            print("  (Input hidden Ã¢â‚¬â€ will not be echoed)")
+            print("  (Input hidden - will not be echoed)")
             passwords[username] = getpass.getpass("  Password: ")
 
     return passwords
@@ -790,16 +790,16 @@ def build_progress_callback(settings: dict):
 
     Each completed check prints a permanent result line. While a check is
     running, a spinner + progress bar animates on a single line below the
-    results using carriage return (\r) overwrite Ã¢â‚¬â€ compatible with all
+    results using carriage return (\r) overwrite - compatible with all
     terminal types including Windows Terminal, VS Code, and CI pipelines.
 
     The spinner runs on a background thread at 80ms so it keeps animating
     even while PowerShell is executing on the remote host.
 
     Events from runner.scan():
-      check_start    Ã¢â‚¬â€ a new check is about to run
-      check_complete Ã¢â‚¬â€ a check finished, result is available
-      scan_complete  Ã¢â‚¬â€ all checks done, clean up display
+      check_start    - a new check is about to run
+      check_complete - a check finished, result is available
+      scan_complete  - all checks done, clean up display
     """
     import threading
     import time
@@ -816,7 +816,7 @@ def build_progress_callback(settings: dict):
             kernel32.GetConsoleMode(handle, ctypes.byref(mode))
             kernel32.SetConsoleMode(handle, mode.value | 0x0004)
         except Exception:
-            pass  # Non-fatal Ã¢â‚¬â€ fall back to plain output
+            pass  # Non-fatal - fall back to plain output
 
     no_color = settings.get("no_color", False)
     interactive = sys.stdout.isatty()
@@ -828,25 +828,14 @@ def build_progress_callback(settings: dict):
         "ERROR": Fore.RED if not no_color else "",
     }
     STATUS_SYMBOLS = {
-        "PASS": "Ã¢Å“â€œ",
-        "FAIL": "Ã¢Å“â€”",
-        "WARNING": "Ã¢Å¡Â ",
+        "PASS": "[PASS]",
+        "FAIL": "[FAIL]",
+        "WARNING": "[WARN]",
         "ERROR": "!",
     }
 
-    # Braille spinner Ã¢â‚¬â€ smooth 10-frame animation
-    SPINNER_FRAMES = [
-        "Ã¢Â â€¹",
-        "Ã¢Â â„¢",
-        "Ã¢Â Â¹",
-        "Ã¢Â Â¸",
-        "Ã¢Â Â¼",
-        "Ã¢Â Â´",
-        "Ã¢Â Â¦",
-        "Ã¢Â Â§",
-        "Ã¢Â â€¡",
-        "Ã¢Â Â",
-    ]
+    # ASCII spinner for broad terminal compatibility.
+    SPINNER_FRAMES = ["|", "/", "-", "\\"]
 
     # Shared state between callback (main thread) and spinner (background thread)
     state = {
@@ -865,16 +854,16 @@ def build_progress_callback(settings: dict):
         return (Fore.CYAN + str(text) + Style.RESET_ALL) if not no_color else str(text)
 
     def _progress_bar(current: int, total: int, width: int = 24) -> str:
-        """Unicode block progress bar."""
+        """ASCII progress bar."""
         if total == 0:
-            return "Ã¢â€“â€˜" * width
+            return "-" * width
         filled = int(width * current / total)
-        return "Ã¢â€“Ë†" * filled + "Ã¢â€“â€˜" * (width - filled)
+        return "#" * filled + "-" * (width - filled)
 
     def _render_spinner_line(frame: str) -> None:
         """
         Writes the animated spinner+progress line using \r to overwrite.
-        This approach works on all terminal types Ã¢â‚¬â€ no cursor-up codes needed.
+        This approach works on all terminal types - no cursor-up codes needed.
         Called with state["lock"] held.
         """
         current = state["current"]
@@ -1019,7 +1008,7 @@ def print_scan_header(targets: list[dict], settings: dict, scan_folder: Path) ->
 
     for t in targets:
         port_str = f":{t['port']}" if t["port"] != 5985 else ""
-        print(f"    Ã¢â‚¬Â¢ {t['label']:<30} {t['host']}{port_str}  ({t['username']})")
+        print(f"    - {t['label']:<30} {t['host']}{port_str}  ({t['username']})")
     print()
 
 
@@ -1067,7 +1056,7 @@ def scan_host(
     label = target["label"]
     port = target["port"]
 
-    print(f"\n{Fore.CYAN}{'Ã¢â€â‚¬' * 66}{Style.RESET_ALL}")
+    print(f"\n{Fore.CYAN}{'-' * 66}{Style.RESET_ALL}")
     print(f"  Target : {Fore.CYAN}{label}{Style.RESET_ALL}  ({host}:{port})")
     print(f"  User   : {username}")
 
@@ -1108,7 +1097,7 @@ def scan_host(
     runner = ComplianceRunner(str(profile_path), settings)
     check_count = len(runner.profile["checks"])
     print(
-        f"  {Fore.GREEN}Ã¢Å“â€œ {runner.profile['profile_name']} Ã¢â‚¬â€ {check_count} checks{Style.RESET_ALL}"
+        f"  {Fore.GREEN}[OK] {runner.profile['profile_name']} - {check_count} checks{Style.RESET_ALL}"
     )
 
     # ------------------------------------------------------------------
@@ -1118,7 +1107,7 @@ def scan_host(
 
     # Column headers
     print(f"  {'':3}  {'Target':<28}  {'Check':<8}  {'Name':<45}  {'Result'}")
-    print(f"  {'Ã¢â€â‚¬' * 100}")
+    print(f"  {'-' * 100}")
 
     progress_callback = build_progress_callback(settings)
 
@@ -1132,9 +1121,7 @@ def scan_host(
             host_label=label,
         )
     except WinRMConnectionError as e:
-        print(
-            f"\n  {Fore.RED}Ã¢Å“â€” Connection lost during scan: {e}{Style.RESET_ALL}"
-        )
+        print(f"\n  {Fore.RED}[FAIL] Connection lost during scan: {e}{Style.RESET_ALL}")
         return None
     finally:
         connector.disconnect()
@@ -1142,7 +1129,7 @@ def scan_host(
     # ------------------------------------------------------------------
     # Per-host results summary
     # ------------------------------------------------------------------
-    print(f"\n  {'Ã¢â€â‚¬' * 66}")
+    print(f"\n  {'-' * 66}")
     print(
         f"  {Fore.GREEN}PASS {scan_result.passed:>3}{Style.RESET_ALL}   "
         f"{Fore.RED}FAIL {scan_result.failed:>3}{Style.RESET_ALL}   "
@@ -1155,7 +1142,7 @@ def scan_host(
         print(f"\n  {Fore.RED}Findings requiring remediation:{Style.RESET_ALL}")
         for check in scan_result.checks:
             if check.status == "FAIL":
-                print(f"    Ã¢Å“â€” [{check.check_id}] {check.check_name}")
+                print(f"    [FAIL] [{check.check_id}] {check.check_name}")
                 print(f"        {check.finding}")
 
     # ------------------------------------------------------------------
@@ -1165,11 +1152,11 @@ def scan_host(
 
     if settings["format"] in ("html", "both"):
         path = HtmlReporter(str(scan_folder), filename=fname).generate(scan_result)
-        print(f"\n  {Fore.GREEN}Ã¢Å“â€œ HTML report: {path}{Style.RESET_ALL}")
+        print(f"\n  {Fore.GREEN}[OK] HTML report: {path}{Style.RESET_ALL}")
 
     if settings["format"] in ("json", "both"):
         path = JsonReporter(str(scan_folder), filename=fname).generate(scan_result)
-        print(f"  {Fore.GREEN}Ã¢Å“â€œ JSON report: {path}{Style.RESET_ALL}")
+        print(f"  {Fore.GREEN}[OK] JSON report: {path}{Style.RESET_ALL}")
 
     return scan_result
 
@@ -1190,7 +1177,7 @@ def generate_summary_report(
 
     The summary shows a comparison table: one row per host with compliance
     percentage, pass/fail/warn/error counts, and a link to the per-host report.
-    This is the first thing an auditor or manager sees Ã¢â‚¬â€ the per-host reports
+    This is the first thing an auditor or manager sees - the per-host reports
     contain the full evidence detail.
 
     Parameters
@@ -1211,7 +1198,7 @@ def generate_summary_report(
 
     if not successful:
         print(
-            f"\n{Fore.YELLOW}No successful scans Ã¢â‚¬â€ summary report not generated.{Style.RESET_ALL}"
+            f"\n{Fore.YELLOW}No successful scans - summary report not generated.{Style.RESET_ALL}"
         )
         return
 
@@ -1242,7 +1229,7 @@ def generate_summary_report(
         <tr>
             <td>{esc(target["label"])}</td>
             <td>{esc(target["host"])}</td>
-            <td colspan="5" style="color:gray">Connection failed Ã¢â‚¬â€ no data</td>
+            <td colspan="5" style="color:gray">Connection failed - no data</td>
         </tr>"""
 
     scan_time = datetime.now(tz=timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
@@ -1252,7 +1239,7 @@ def generate_summary_report(
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Compliance Scan Summary Ã¢â‚¬â€ {esc(profile_name)}</title>
+<title>Compliance Scan Summary - {esc(profile_name)}</title>
 <style>
   body {{ font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; }}
   h1   {{ color: #2c3e50; }}
@@ -1285,7 +1272,7 @@ def generate_summary_report(
 
     summary_path = scan_folder / f"summary_{slugify(settings['profile'])}.html"
     summary_path.write_text(html_doc, encoding="utf-8")
-    print(f"\n  {Fore.GREEN}Ã¢Å“â€œ Summary report: {summary_path}{Style.RESET_ALL}")
+    print(f"\n  {Fore.GREEN}[OK] Summary report: {summary_path}{Style.RESET_ALL}")
 
 
 # =============================================================================
@@ -1499,7 +1486,7 @@ def main() -> None:
     args = parse_args()
 
     # ------------------------------------------------------------------
-    # Informational commands Ã¢â‚¬â€ print and exit
+    # Informational commands - print and exit
     # ------------------------------------------------------------------
     if args.list_profiles:
         cmd_list_profiles()

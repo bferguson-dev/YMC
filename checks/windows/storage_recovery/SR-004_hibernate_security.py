@@ -69,11 +69,11 @@ Write-Output "Fast Startup (HiberBoot): $hiberboot  (0=disabled)"
                     pass
         if not hibr_exists:
             result.status = STATUS_PASS
-            result.finding = "Hibernation is disabled â€” no hiberfil.sys present."
+            result.finding = "Hibernation is disabled - no hiberfil.sys present."
             result.remediation = ""
         elif hibr_exists and bl_on:
             result.status = STATUS_PASS
-            result.finding = "hiberfil.sys exists but BitLocker is enabled on C: â€” hibernate file is encrypted."
+            result.finding = "hiberfil.sys exists but BitLocker is enabled on C: - hibernate file is encrypted."
             result.remediation = ""
         else:
             result.status = STATUS_FAIL

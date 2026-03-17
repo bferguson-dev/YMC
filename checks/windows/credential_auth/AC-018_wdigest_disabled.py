@@ -76,7 +76,7 @@ Write-Output "OS Version: $os"
                 "UseLogonCredential=0 (DWORD). Requires logoff/logon to take effect."
             )
         else:
-            # Not set â€” safe on Windows 8.1+ / Server 2012R2+, risky on older
+            # Not set - safe on Windows 8.1+ / Server 2012R2+, risky on older
             result.status = STATUS_PASS
             result.finding = (
                 f"WDigest UseLogonCredential registry key not set. "

@@ -72,15 +72,13 @@ Write-Output "PSv2 Feature: $(if($v2){$v2.State}else{'not found'})"
         issues = []
         if ps_major is not None and ps_major < 5:
             issues.append(
-                f"PowerShell {ps_major}.{ps_minor} is installed â€” version 5.1+ is required for full security features"
+                f"PowerShell {ps_major}.{ps_minor} is installed - version 5.1+ is required for full security features"
             )
         if ps_major == 5 and ps_minor < 1:
-            issues.append(
-                "PowerShell 5.0 detected â€” upgrade to 5.1 for security fixes"
-            )
+            issues.append("PowerShell 5.0 detected - upgrade to 5.1 for security fixes")
         if "enabled" in v2_state:
             issues.append(
-                "PowerShell 2.0 engine is still installed â€” it bypasses script block logging and AMSI"
+                "PowerShell 2.0 engine is still installed - it bypasses script block logging and AMSI"
             )
 
         if issues:

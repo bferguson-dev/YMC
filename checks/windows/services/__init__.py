@@ -83,11 +83,11 @@ if ($svc -and $svc.Status -eq 'Running') {
                     issues.append("Anonymous authentication is enabled on default site")
                 if "Directory browsing: True" in line:
                     issues.append(
-                        "Directory browsing is enabled â€” exposes file structure"
+                        "Directory browsing is enabled - exposes file structure"
                     )
                 if "Server header removed: False" in line:
                     issues.append(
-                        "Server version header not removed â€” discloses IIS version"
+                        "Server version header not removed - discloses IIS version"
                     )
 
             if issues:

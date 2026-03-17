@@ -9,7 +9,7 @@ Framework: CIS Benchmark
 
 This file is auto-discovered by the check registry at startup.
 To add a new check, create a new file in this directory following
-the same pattern â€” no other files need to be modified.
+the same pattern - no other files need to be modified.
 """
 
 import logging
@@ -61,35 +61,35 @@ def check_cis_baseline(
     ps_script = """
 Write-Output "--- CIS Benchmark Subset Checks ---"
 
-# CIS 2.3.1.1 â€” Anonymous enumeration of SAM accounts disabled
+# CIS 2.3.1.1 - Anonymous enumeration of SAM accounts disabled
 $noAnon = (Get-ItemProperty 'HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Lsa' -Name 'RestrictAnonymousSAM' -ErrorAction SilentlyContinue).RestrictAnonymousSAM
 Write-Output "CIS-2.3.1.1 RestrictAnonymousSAM       : $noAnon  (Expected: 1)"
 
-# CIS 2.3.1.2 â€” Anonymous enumeration of shares disabled
+# CIS 2.3.1.2 - Anonymous enumeration of shares disabled
 $noAnonShares = (Get-ItemProperty 'HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Lsa' -Name 'RestrictAnonymous' -ErrorAction SilentlyContinue).RestrictAnonymous
 Write-Output "CIS-2.3.1.2 RestrictAnonymous           : $noAnonShares  (Expected: 1)"
 
-# CIS 2.3.11.7 â€” LAN Manager Auth Level (NTLMv2 only)
+# CIS 2.3.11.7 - LAN Manager Auth Level (NTLMv2 only)
 $lmLevel = (Get-ItemProperty 'HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Lsa' -Name 'LmCompatibilityLevel' -ErrorAction SilentlyContinue).LmCompatibilityLevel
 Write-Output "CIS-2.3.11.7 LmCompatibilityLevel       : $lmLevel  (Expected: 5)"
 
-# CIS 2.3.8.1 â€” SMB server packet signing required
+# CIS 2.3.8.1 - SMB server packet signing required
 $smbSignReq = (Get-ItemProperty 'HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanManServer\\Parameters' -Name 'RequireSecuritySignature' -ErrorAction SilentlyContinue).RequireSecuritySignature
 Write-Output "CIS-2.3.8.1 SMB RequireSecuritySignature: $smbSignReq  (Expected: 1)"
 
-# CIS 2.3.8.2 â€” SMB server packet signing enabled
+# CIS 2.3.8.2 - SMB server packet signing enabled
 $smbSignEn = (Get-ItemProperty 'HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanManServer\\Parameters' -Name 'EnableSecuritySignature' -ErrorAction SilentlyContinue).EnableSecuritySignature
 Write-Output "CIS-2.3.8.2 SMB EnableSecuritySignature : $smbSignEn  (Expected: 1)"
 
-# WDigest â€” disable plaintext credential caching
+# WDigest - disable plaintext credential caching
 $wdigest = (Get-ItemProperty 'HKLM:\\SYSTEM\\CurrentControlSet\\Control\\SecurityProviders\\WDigest' -Name 'UseLogonCredential' -ErrorAction SilentlyContinue).UseLogonCredential
 Write-Output "WDigest UseLogonCredential              : $wdigest  (Expected: 0)"
 
-# CIS 2.3.17.1 â€” UAC: Admin Approval Mode for built-in Administrator
+# CIS 2.3.17.1 - UAC: Admin Approval Mode for built-in Administrator
 $uacAdmin = (Get-ItemProperty 'HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System' -Name 'FilterAdministratorToken' -ErrorAction SilentlyContinue).FilterAdministratorToken
 Write-Output "CIS-2.3.17.1 FilterAdministratorToken   : $uacAdmin  (Expected: 1)"
 
-# Remote UAC (LocalAccountTokenFilterPolicy) â€” should NOT be set to 1
+# Remote UAC (LocalAccountTokenFilterPolicy) - should NOT be set to 1
 $remoteUac = (Get-ItemProperty 'HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System' -Name 'LocalAccountTokenFilterPolicy' -ErrorAction SilentlyContinue).LocalAccountTokenFilterPolicy
 Write-Output "LocalAccountTokenFilterPolicy           : $remoteUac  (Expected: 0 or not set)"
 
@@ -149,7 +149,7 @@ Write-Output "SafeDllSearchMode                       : $safeDll  (Expected: 1)"
                         else:
                             warnings.append(message)
 
-        # Remote UAC â€” value should be 0 or not set; 1 is bad
+        # Remote UAC - value should be 0 or not set; 1 is bad
         for line in output.splitlines():
             if "LocalAccountTokenFilterPolicy" in line:
                 val = line.split(":")[-1].strip().split()[0] if ":" in line else ""

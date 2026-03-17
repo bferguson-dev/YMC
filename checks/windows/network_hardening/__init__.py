@@ -85,7 +85,7 @@ Write-Output "SecurityLayer     : $security  (0=RDP, 1=Negotiate, 2=SSL/TLS)"
             result.remediation = "Set SecurityLayer=2 (SSL/TLS required) in HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Terminal Server\\WinStations\\RDP-Tcp."
         elif enc_level in (1, 2):
             result.status = STATUS_FAIL
-            result.finding = f"RDP encryption level is '{level_name}' â€” insufficient for compliance. Session data may be intercepted."
+            result.finding = f"RDP encryption level is '{level_name}' - insufficient for compliance. Session data may be intercepted."
             result.remediation = (
                 "Set MinEncryptionLevel=3 (High) or 4 (FIPS) and SecurityLayer=2 via GPO: "
                 "Computer Configuration > Administrative Templates > Windows Components > "

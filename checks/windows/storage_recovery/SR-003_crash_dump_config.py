@@ -82,7 +82,7 @@ Write-Output "LogEvent         : $($dump.LogEvent)"
             )
         elif dump_type in (0, 2, 3, 7):
             result.status = STATUS_PASS
-            result.finding = f"Crash dump is set to '{name}' â€” does not capture full memory contents."
+            result.finding = f"Crash dump is set to '{name}' - does not capture full memory contents."
             result.remediation = ""
         else:
             result.status = STATUS_WARNING

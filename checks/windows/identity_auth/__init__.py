@@ -9,7 +9,7 @@ Framework: NIST IA-2
 
 This file is auto-discovered by the check registry at startup.
 To add a new check, create a new file in this directory following
-the same pattern â€” no other files need to be modified.
+the same pattern - no other files need to be modified.
 """
 
 import logging
@@ -95,11 +95,11 @@ if ($rdpEnabled -eq 1) {
         elif "RDP_STATUS: INFO" in cmd.stdout:
             result.status = STATUS_PASS
             result.finding = (
-                "RDP is disabled on this system â€” NLA check not applicable."
+                "RDP is disabled on this system - NLA check not applicable."
             )
         elif "RDP_STATUS: FAIL" in cmd.stdout:
             result.status = STATUS_FAIL
-            result.finding = "RDP does not require NLA â€” sessions can be established without pre-authentication."
+            result.finding = "RDP does not require NLA - sessions can be established without pre-authentication."
             result.remediation = (
                 "Enable NLA via GPO: Computer Configuration > Administrative Templates > "
                 "Windows Components > Remote Desktop Services > Remote Desktop Session Host > "
