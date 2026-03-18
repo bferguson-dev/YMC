@@ -1,4 +1,6 @@
-*!!! This project has not been tested in a production environment. Perform your own due diligence, validation, and change control before using it on any system. !!!*
+*[!] This project has not been tested in a production environment. You are
+responsible for validating, understanding, and testing it in your own
+environment before any real-world use. [!]*
 
 # YMC
 
@@ -120,7 +122,7 @@ full option reference.
 
 ## Testing And Quality Gates
 
-Run the smoke tests:
+Run the regression tests:
 
 ```bash
 python -m pytest -q
@@ -132,12 +134,21 @@ Run the local quality gate:
 ./check.sh
 ```
 
-`check.sh` runs:
-1. `ruff format`
-2. `ruff check`
-3. `bandit`
-4. `pip-audit`
-5. `pytest`
+`check.sh` enforces:
+1. Git hygiene checks for staged diffs, file modes, suspicious paths, staged
+   artifacts, line endings, and optional `git-secrets`
+2. `ruff format`
+3. `ruff check`
+4. `bandit`
+5. `gitleaks` when installed
+6. `pip-audit`
+7. Shell syntax checks and optional `shellcheck`
+8. Markdown text and relative-link validation
+9. JSON, YAML, and TOML syntax validation
+10. Layered pytest execution over the repo's available test scopes
+
+`STRICT_MODE=1 ./check.sh` enables a stricter variant that also requires a
+clean unstaged worktree and turns missing optional tools into failures.
 
 ## Secret Scanning
 
@@ -156,6 +167,8 @@ Manual scans:
 ```bash
 gitleaks detect --source . --config .gitleaks.toml --redact --verbose
 gitleaks protect --staged --config .gitleaks.toml --redact --verbose
+git secrets --scan --cached
+git secrets --scan-history
 ```
 
 ## Troubleshooting
@@ -170,7 +183,9 @@ gitleaks protect --staged --config .gitleaks.toml --redact --verbose
 
 ## Known Limitations
 
-- Validation coverage in the repo is currently limited to CLI smoke tests.
+- Most automated coverage is still focused on CLI, config-resolution, and CSV
+  target-loading behavior rather than live WinRM collection against Windows
+  hosts.
 - The tool is Windows-only today and does not provide Linux, macOS, or cloud
   collection.
 - Some checks depend on target-specific Windows features, services, or
