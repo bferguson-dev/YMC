@@ -1,6 +1,10 @@
-*[!] This project has not been tested in a production environment. You are
-responsible for validating, understanding, and testing it in your own
-environment before any real-world use. [!]*
+*[!] This project is provided as-is, without warranties or guarantees of any
+kind, and has not been validated in a production environment unless explicitly
+stated otherwise. You are solely responsible for evaluating, testing, securing,
+and operating it safely in your environment and for verifying compliance with
+any legal, regulatory, or contractual requirements. By using this project, you
+accept all risk, and the authors and contributors assume no liability for any
+loss, damage, outage, misuse, or other consequences arising from its use. [!]*
 
 # YMC
 
@@ -136,7 +140,7 @@ Run the local quality gate:
 
 `check.sh` enforces:
 1. Git hygiene checks for staged diffs, file modes, suspicious paths, staged
-   artifacts, line endings, and optional `git-secrets`
+   artifacts, line endings, and optional secret scans
 2. `ruff format`
 3. `ruff check`
 4. `bandit`
@@ -167,8 +171,6 @@ Manual scans:
 ```bash
 gitleaks detect --source . --config .gitleaks.toml --redact --verbose
 gitleaks protect --staged --config .gitleaks.toml --redact --verbose
-git secrets --scan --cached
-git secrets --scan-history
 ```
 
 ## Troubleshooting
