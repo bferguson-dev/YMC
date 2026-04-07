@@ -32,6 +32,7 @@ checks:
   - {check_id: "AC-019", control_id: "AC-3",  control_name: "Access Enforcement",        requirement: "Restrict anonymous access to SAM database."}
   - {check_id: "AC-020", control_id: "AC-9",  control_name: "Previous Logon Notification",requirement: "Display last interactive logon information at login."}
   - {check_id: "AC-021", control_id: "AC-22", control_name: "Publicly Accessible Content",requirement: "Ensure computer description does not disclose sensitive information."}
+  - {check_id: "AC-022", control_id: "AC-6",  control_name: "Least Privilege",            requirement: "Do not display the last signed-in username at logon."}
 
   # === IDENTIFICATION AND AUTHENTICATION (IA) ===
   - {check_id: "IA-001", control_id: "IA-5",  control_name: "Authenticator Management",  requirement: "Enforce minimum password length of 14 characters."}

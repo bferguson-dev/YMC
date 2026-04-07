@@ -16,6 +16,7 @@ checks:
 
   # === A.6: People Controls ===
   - {check_id: "AC-020", control_id: "A.6.1",  control_name: "Screening",                requirement: "Display last logon to help users detect unauthorized access."}
+  - {check_id: "AC-022", control_id: "A.6.1",  control_name: "Screening",                requirement: "Do not display the last signed-in username at logon."}
 
   # === A.8: Technological Controls ===
   - {check_id: "AC-001", control_id: "A.8.2",  control_name: "Privileged Access Rights", requirement: "Identify inactive user accounts."}

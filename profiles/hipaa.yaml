@@ -54,6 +54,7 @@ checks:
   - {check_id: "AU-011", control_id: "164.312(b)",    control_name: "Audit Controls",    requirement: "Verify NTP time synchronization."}
   - {check_id: "AC-016", control_id: "164.312(a)(1)", control_name: "Access Control",    requirement: "Configure logon banner for ePHI systems."}
   - {check_id: "AC-019", control_id: "164.312(a)(1)", control_name: "Access Control",    requirement: "Restrict null session / anonymous access."}
+  - {check_id: "AC-022", control_id: "164.312(a)(1)", control_name: "Access Control",    requirement: "Do not display the last signed-in username at logon."}
   - {check_id: "CM-005", control_id: "164.312(a)(1)", control_name: "Access Control",    requirement: "Windows Firewall enabled on all profiles."}
   - {check_id: "NH-001", control_id: "164.312(a)(1)", control_name: "Access Control",    requirement: "Disable LLMNR — credential theft risk."}
   - {check_id: "NH-002", control_id: "164.312(a)(1)", control_name: "Access Control",    requirement: "Disable NetBIOS over TCP/IP."}
