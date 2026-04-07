@@ -31,6 +31,7 @@ checks:
   - {check_id: "AC-018", control_id: "IA.L2-3.5.3",  control_name: "Multifactor Auth",   requirement: "Disable WDigest."}
   - {check_id: "AC-019", control_id: "AC.L2-3.1.1",  control_name: "Authorized Access",  requirement: "Restrict anonymous SAM access."}
   - {check_id: "AC-020", control_id: "AC.L2-3.1.9",  control_name: "Privacy Notices",    requirement: "Display last logon information."}
+  - {check_id: "AC-022", control_id: "AC.L2-3.1.9",  control_name: "Privacy Notices",    requirement: "Do not display the last signed-in username at logon."}
 
   # === AU: Audit and Accountability ===
   - {check_id: "AU-001", control_id: "AU.L2-3.3.1",  control_name: "System Auditing",    requirement: "Create and retain system audit logs — logon events."}

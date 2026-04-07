@@ -99,6 +99,7 @@ checks:
 
   # === REQUIREMENT 12: Support Information Security ===
   - {check_id: "AC-020", control_id: "12.5", control_name: "Security Policies",          requirement: "Display last logon information at login."}
+  - {check_id: "AC-022", control_id: "12.5", control_name: "Security Policies",          requirement: "Do not display the last signed-in username at logon."}
   - {check_id: "SR-001", control_id: "12.3", control_name: "Risk Management",            requirement: "Verify restore points/VSS are enabled."}
   - {check_id: "SR-005", control_id: "12.3", control_name: "Risk Management",            requirement: "Verify BitLocker recovery key is backed up."}
   - {check_id: "CERT-001", control_id: "12.3", control_name: "Risk Management",          requirement: "Identify expired certificates."}

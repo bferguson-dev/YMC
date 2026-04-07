@@ -30,6 +30,7 @@ checks:
   - {check_id: "AC-018", control_id: "CC6.1", control_name: "Logical Access Security",   requirement: "Disable WDigest authentication."}
   - {check_id: "AC-019", control_id: "CC6.1", control_name: "Logical Access Security",   requirement: "Restrict null session anonymous access."}
   - {check_id: "AC-020", control_id: "CC6.1", control_name: "Logical Access Security",   requirement: "Display last logon information."}
+  - {check_id: "AC-022", control_id: "CC6.1", control_name: "Logical Access Security",   requirement: "Do not display the last signed-in username at logon."}
   - {check_id: "IA-001", control_id: "CC6.1", control_name: "Logical Access Security",   requirement: "Enforce password length minimum 14."}
   - {check_id: "IA-002", control_id: "CC6.1", control_name: "Logical Access Security",   requirement: "Enforce password complexity."}
   - {check_id: "IA-003", control_id: "CC6.1", control_name: "Logical Access Security",   requirement: "Enforce password expiration."}
