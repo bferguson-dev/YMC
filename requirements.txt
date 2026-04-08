@@ -2,7 +2,7 @@
 pywinrm==0.4.3
 
 # HTTP transport used by pywinrm
-requests==2.32.4
+requests==2.33.0
 
 # Kerberos authentication support (optional — required only for kerberos transport)
 requests-kerberos==0.15.0

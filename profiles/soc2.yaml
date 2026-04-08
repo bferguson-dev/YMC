@@ -97,3 +97,36 @@ checks:
   - {check_id: "SR-001", control_id: "A1.2", control_name: "Availability",                requirement: "Verify VSS restore points enabled."}
   - {check_id: "SR-005", control_id: "A1.2", control_name: "Availability",                requirement: "Verify BitLocker recovery key backed up."}
   - {check_id: "CIS-001", control_id: "CC9.2", control_name: "Risk Mitigation",           requirement: "Verify CIS Level 1 baseline."}
+
+  # === CC6: User Rights Assignments (Logical Access) ===
+  - {check_id: "UR-001", control_id: "CC6.3", control_name: "Logical Access Security",   requirement: "SeTcbPrivilege must be empty."}
+  - {check_id: "UR-002", control_id: "CC6.3", control_name: "Logical Access Security",   requirement: "SeDebugPrivilege — Administrators only."}
+  - {check_id: "UR-003", control_id: "CC6.3", control_name: "Logical Access Security",   requirement: "SeLockMemoryPrivilege must be empty."}
+  - {check_id: "UR-004", control_id: "CC6.3", control_name: "Logical Access Security",   requirement: "SeCreateTokenPrivilege must be empty."}
+  - {check_id: "UR-005", control_id: "CC6.3", control_name: "Logical Access Security",   requirement: "SeEnableDelegationPrivilege must be empty."}
+  - {check_id: "UR-006", control_id: "CC6.3", control_name: "Logical Access Security",   requirement: "SeCreatePermanentPrivilege must be empty."}
+  - {check_id: "UR-007", control_id: "CC6.3", control_name: "Logical Access Security",   requirement: "Guests denied network logon."}
+  - {check_id: "UR-008", control_id: "CC6.3", control_name: "Logical Access Security",   requirement: "Guests denied remote interactive logon."}
+  - {check_id: "UR-009", control_id: "CC6.3", control_name: "Logical Access Security",   requirement: "Everyone not in SeNetworkLogonRight."}
+  - {check_id: "UR-010", control_id: "CC6.3", control_name: "Logical Access Security",   requirement: "SeRemoteInteractiveLogonRight — Admins and RDP Users only."}
+  - {check_id: "UR-011", control_id: "CC6.3", control_name: "Logical Access Security",   requirement: "SeBackupPrivilege — Admins and Backup Operators only."}
+  - {check_id: "UR-012", control_id: "CC6.3", control_name: "Logical Access Security",   requirement: "SeRestorePrivilege — Admins and Backup Operators only."}
+  - {check_id: "UR-013", control_id: "CC6.3", control_name: "Logical Access Security",   requirement: "SeLoadDriverPrivilege — Administrators only."}
+  - {check_id: "UR-014", control_id: "CC6.3", control_name: "Logical Access Security",   requirement: "SeTakeOwnershipPrivilege — Administrators only."}
+  - {check_id: "UR-015", control_id: "CC6.3", control_name: "Logical Access Security",   requirement: "SeManageVolumePrivilege — Administrators only."}
+  - {check_id: "UR-016", control_id: "CC6.3", control_name: "Logical Access Security",   requirement: "SeSystemEnvironmentPrivilege — Administrators only."}
+  - {check_id: "UR-017", control_id: "CC6.3", control_name: "Logical Access Security",   requirement: "SeAssignPrimaryTokenPrivilege — Local/Network Service only."}
+  - {check_id: "UR-018", control_id: "CC6.3", control_name: "Logical Access Security",   requirement: "SeImpersonatePrivilege — Admins and service accounts only."}
+  - {check_id: "UR-019", control_id: "CC7.2", control_name: "System Monitoring",          requirement: "SeSecurityPrivilege — Administrators only."}
+  - {check_id: "UR-020", control_id: "CC6.3", control_name: "Logical Access Security",   requirement: "Guests not permitted local interactive logon."}
+  - {check_id: "AC-023", control_id: "CC6.1", control_name: "Logical Access Security",   requirement: "LmCompatibilityLevel=5 — NTLMv2 only."}
+  - {check_id: "AU-017", control_id: "CC7.2", control_name: "System Monitoring",          requirement: "Key audit subcategories configured at required levels."}
+  - {check_id: "EM-012", control_id: "CC9.2", control_name: "Risk Mitigation",            requirement: "TPM present, enabled, and activated."}
+  - {check_id: "EM-013", control_id: "CC9.2", control_name: "Risk Mitigation",            requirement: "HVCI (Memory Integrity) enabled."}
+  - {check_id: "CM-017", control_id: "CC9.2", control_name: "Risk Mitigation",            requirement: "WSL not installed."}
+  - {check_id: "CM-018", control_id: "CC9.2", control_name: "Risk Mitigation",            requirement: "TFTP client not installed."}
+  - {check_id: "CM-019", control_id: "CC9.2", control_name: "Risk Mitigation",            requirement: "Simple TCP/IP Services not installed."}
+  - {check_id: "CM-020", control_id: "CC9.2", control_name: "Risk Mitigation",            requirement: "File extensions visible (HideFileExt=0)."}
+  - {check_id: "SV-008", control_id: "CC9.2", control_name: "Risk Mitigation",            requirement: "Remote Assistance disabled."}
+  - {check_id: "NH-014", control_id: "CC9.2", control_name: "Risk Mitigation",            requirement: "NetBIOS name release prevention enabled."}
+  - {check_id: "NH-015", control_id: "CC9.2", control_name: "Risk Mitigation",            requirement: "Router discovery (IRDP) disabled."}

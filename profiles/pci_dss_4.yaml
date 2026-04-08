@@ -104,6 +104,36 @@ checks:
   - {check_id: "SR-005", control_id: "12.3", control_name: "Risk Management",            requirement: "Verify BitLocker recovery key is backed up."}
   - {check_id: "CERT-001", control_id: "12.3", control_name: "Risk Management",          requirement: "Identify expired certificates."}
 
+  # === REQUIREMENT 7: User Rights / Least Privilege ===
+  - {check_id: "UR-001", control_id: "7.2", control_name: "Access Control Systems",      requirement: "SeTcbPrivilege must be empty."}
+  - {check_id: "UR-002", control_id: "7.2", control_name: "Access Control Systems",      requirement: "SeDebugPrivilege — Administrators only."}
+  - {check_id: "UR-003", control_id: "7.2", control_name: "Access Control Systems",      requirement: "SeLockMemoryPrivilege must be empty."}
+  - {check_id: "UR-004", control_id: "7.2", control_name: "Access Control Systems",      requirement: "SeCreateTokenPrivilege must be empty."}
+  - {check_id: "UR-005", control_id: "7.2", control_name: "Access Control Systems",      requirement: "SeEnableDelegationPrivilege must be empty."}
+  - {check_id: "UR-006", control_id: "7.2", control_name: "Access Control Systems",      requirement: "SeCreatePermanentPrivilege must be empty."}
+  - {check_id: "UR-007", control_id: "7.2", control_name: "Access Control Systems",      requirement: "Guests denied network logon."}
+  - {check_id: "UR-008", control_id: "7.2", control_name: "Access Control Systems",      requirement: "Guests denied remote interactive logon."}
+  - {check_id: "UR-009", control_id: "7.2", control_name: "Access Control Systems",      requirement: "Everyone not in SeNetworkLogonRight."}
+  - {check_id: "UR-010", control_id: "7.2", control_name: "Access Control Systems",      requirement: "SeRemoteInteractiveLogonRight — Admins and RDP Users only."}
+  - {check_id: "UR-011", control_id: "7.2", control_name: "Access Control Systems",      requirement: "SeBackupPrivilege — Admins and Backup Operators only."}
+  - {check_id: "UR-012", control_id: "7.2", control_name: "Access Control Systems",      requirement: "SeRestorePrivilege — Admins and Backup Operators only."}
+  - {check_id: "UR-013", control_id: "7.2", control_name: "Access Control Systems",      requirement: "SeLoadDriverPrivilege — Administrators only."}
+  - {check_id: "UR-014", control_id: "7.2", control_name: "Access Control Systems",      requirement: "SeTakeOwnershipPrivilege — Administrators only."}
+  - {check_id: "UR-015", control_id: "7.2", control_name: "Access Control Systems",      requirement: "SeManageVolumePrivilege — Administrators only."}
+  - {check_id: "UR-016", control_id: "7.2", control_name: "Access Control Systems",      requirement: "SeSystemEnvironmentPrivilege — Administrators only."}
+  - {check_id: "UR-017", control_id: "7.2", control_name: "Access Control Systems",      requirement: "SeAssignPrimaryTokenPrivilege — Local/Network Service only."}
+  - {check_id: "UR-018", control_id: "7.2", control_name: "Access Control Systems",      requirement: "SeImpersonatePrivilege — Admins and service accounts only."}
+  - {check_id: "UR-019", control_id: "10.2", control_name: "Audit Log Implementation",   requirement: "SeSecurityPrivilege — Administrators only."}
+  - {check_id: "UR-020", control_id: "7.2", control_name: "Access Control Systems",      requirement: "Guests not permitted local interactive logon."}
+  - {check_id: "AC-023", control_id: "8.3", control_name: "Strong Authentication",       requirement: "LmCompatibilityLevel=5 — NTLMv2 only."}
+  - {check_id: "AU-017", control_id: "10.2", control_name: "Audit Log Implementation",   requirement: "Key audit subcategories configured at required levels."}
+  - {check_id: "SV-008", control_id: "2.2", control_name: "System Configuration Standards",requirement: "Remote Assistance disabled."}
+  - {check_id: "CM-017", control_id: "2.2", control_name: "System Configuration Standards",requirement: "WSL not installed."}
+  - {check_id: "CM-018", control_id: "2.2", control_name: "System Configuration Standards",requirement: "TFTP client not installed."}
+  - {check_id: "CM-019", control_id: "2.2", control_name: "System Configuration Standards",requirement: "Simple TCP/IP Services not installed."}
+  - {check_id: "NH-014", control_id: "1.3", control_name: "Network Access Controls",     requirement: "NetBIOS name release prevention enabled."}
+  - {check_id: "NH-015", control_id: "1.3", control_name: "Network Access Controls",     requirement: "Router discovery (IRDP) disabled."}
+
   # === EXPLOIT MITIGATIONS ===
   - {check_id: "EM-001", control_id: "6.3", control_name: "Security Vulnerabilities",    requirement: "Enable DEP for all processes."}
   - {check_id: "EM-002", control_id: "6.3", control_name: "Security Vulnerabilities",    requirement: "Enable ASLR."}

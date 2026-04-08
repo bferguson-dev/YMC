@@ -75,6 +75,42 @@ checks:
   - {check_id: "IA-003", control_id: "IA.L2-3.5.7",  control_name: "Password Complexity",requirement: "Enforce password expiration."}
   - {check_id: "IA-004", control_id: "IA.L2-3.5.3",  control_name: "Multifactor Auth",   requirement: "Require NLA for RDP."}
 
+  # === AC: User Rights Assignments (Least Privilege) ===
+  - {check_id: "UR-001", control_id: "AC.L2-3.1.5",  control_name: "Least Privilege",    requirement: "SeTcbPrivilege must be empty."}
+  - {check_id: "UR-002", control_id: "AC.L2-3.1.5",  control_name: "Least Privilege",    requirement: "SeDebugPrivilege — Administrators only."}
+  - {check_id: "UR-003", control_id: "AC.L2-3.1.5",  control_name: "Least Privilege",    requirement: "SeLockMemoryPrivilege must be empty."}
+  - {check_id: "UR-004", control_id: "AC.L2-3.1.5",  control_name: "Least Privilege",    requirement: "SeCreateTokenPrivilege must be empty."}
+  - {check_id: "UR-005", control_id: "AC.L2-3.1.5",  control_name: "Least Privilege",    requirement: "SeEnableDelegationPrivilege must be empty."}
+  - {check_id: "UR-006", control_id: "AC.L2-3.1.5",  control_name: "Least Privilege",    requirement: "SeCreatePermanentPrivilege must be empty."}
+  - {check_id: "UR-007", control_id: "AC.L2-3.1.5",  control_name: "Least Privilege",    requirement: "Guests denied network logon."}
+  - {check_id: "UR-008", control_id: "AC.L2-3.1.5",  control_name: "Least Privilege",    requirement: "Guests denied remote interactive logon."}
+  - {check_id: "UR-009", control_id: "AC.L2-3.1.5",  control_name: "Least Privilege",    requirement: "Everyone not in SeNetworkLogonRight."}
+  - {check_id: "UR-010", control_id: "AC.L2-3.1.5",  control_name: "Least Privilege",    requirement: "SeRemoteInteractiveLogonRight — Admins and RDP Users only."}
+  - {check_id: "UR-011", control_id: "AC.L2-3.1.5",  control_name: "Least Privilege",    requirement: "SeBackupPrivilege — Admins and Backup Operators only."}
+  - {check_id: "UR-012", control_id: "AC.L2-3.1.5",  control_name: "Least Privilege",    requirement: "SeRestorePrivilege — Admins and Backup Operators only."}
+  - {check_id: "UR-013", control_id: "AC.L2-3.1.5",  control_name: "Least Privilege",    requirement: "SeLoadDriverPrivilege — Administrators only."}
+  - {check_id: "UR-014", control_id: "AC.L2-3.1.5",  control_name: "Least Privilege",    requirement: "SeTakeOwnershipPrivilege — Administrators only."}
+  - {check_id: "UR-015", control_id: "AC.L2-3.1.5",  control_name: "Least Privilege",    requirement: "SeManageVolumePrivilege — Administrators only."}
+  - {check_id: "UR-016", control_id: "AC.L2-3.1.5",  control_name: "Least Privilege",    requirement: "SeSystemEnvironmentPrivilege — Administrators only."}
+  - {check_id: "UR-017", control_id: "AC.L2-3.1.5",  control_name: "Least Privilege",    requirement: "SeAssignPrimaryTokenPrivilege — Local/Network Service only."}
+  - {check_id: "UR-018", control_id: "AC.L2-3.1.5",  control_name: "Least Privilege",    requirement: "SeImpersonatePrivilege — Admins and service accounts only."}
+  - {check_id: "UR-019", control_id: "AC.L2-3.1.5",  control_name: "Least Privilege",    requirement: "SeSecurityPrivilege — Administrators only."}
+  - {check_id: "UR-020", control_id: "AC.L2-3.1.5",  control_name: "Least Privilege",    requirement: "Guests not permitted local interactive logon."}
+  - {check_id: "AC-023", control_id: "IA.L2-3.5.3",  control_name: "Multifactor Auth",   requirement: "LmCompatibilityLevel=5 (NTLMv2 only)."}
+  - {check_id: "IA-005", control_id: "IA.L2-3.5.3",  control_name: "Multifactor Auth",   requirement: "Kerberos ticket lifetime <= 10 hours."}
+  - {check_id: "IA-006", control_id: "IA.L2-3.5.3",  control_name: "Multifactor Auth",   requirement: "Kerberos service ticket lifetime <= 600 minutes."}
+  - {check_id: "IA-007", control_id: "IA.L2-3.5.3",  control_name: "Multifactor Auth",   requirement: "Kerberos clock skew <= 5 minutes."}
+  - {check_id: "AU-017", control_id: "AU.L2-3.3.1",  control_name: "System Auditing",    requirement: "Key audit subcategories configured at required levels."}
+  - {check_id: "EM-012", control_id: "SI.L2-3.14.2", control_name: "Malicious Code",     requirement: "TPM present, enabled, and activated."}
+  - {check_id: "EM-013", control_id: "SI.L2-3.14.2", control_name: "Malicious Code",     requirement: "HVCI (Memory Integrity) enabled."}
+  - {check_id: "CM-017", control_id: "CM.L2-3.4.7",  control_name: "Nonessential Functions",requirement: "WSL not installed."}
+  - {check_id: "CM-018", control_id: "CM.L2-3.4.7",  control_name: "Nonessential Functions",requirement: "TFTP client not installed."}
+  - {check_id: "CM-019", control_id: "CM.L2-3.4.7",  control_name: "Nonessential Functions",requirement: "Simple TCP/IP Services not installed."}
+  - {check_id: "CM-020", control_id: "CM.L2-3.4.7",  control_name: "Nonessential Functions",requirement: "File extensions visible (HideFileExt=0)."}
+  - {check_id: "SV-008", control_id: "CM.L2-3.4.7",  control_name: "Nonessential Functions",requirement: "Remote Assistance disabled."}
+  - {check_id: "NH-014", control_id: "SC.L2-3.13.1", control_name: "Boundary Protection",requirement: "NetBIOS name release prevention enabled."}
+  - {check_id: "NH-015", control_id: "SC.L2-3.13.1", control_name: "Boundary Protection",requirement: "Router discovery (IRDP) disabled."}
+
   # === SC: System and Communications Protection ===
   - {check_id: "NH-001", control_id: "SC.L2-3.13.1", control_name: "Boundary Protection",requirement: "Disable LLMNR."}
   - {check_id: "NH-002", control_id: "SC.L2-3.13.1", control_name: "Boundary Protection",requirement: "Disable NetBIOS."}

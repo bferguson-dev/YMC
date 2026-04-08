@@ -1,0 +1,139 @@
+# FedRAMP Moderate Baseline Compliance Profile
+# ----------------------------------------------
+profile_name: "FedRAMP Moderate"
+profile_id: "FEDRAMP_MODERATE"
+version: "Rev 5 Baseline"
+description: >
+  Federal Risk and Authorization Management Program — Moderate Impact Baseline.
+  Applies to cloud and federal information systems processing data where loss of
+  confidentiality, integrity, or availability would have serious adverse effects.
+  Built on NIST SP 800-53 Rev 5; Moderate baseline covers the majority of NIST
+  800-53 controls with moderate impact parameter values.
+
+checks:
+
+  # === AC: ACCESS CONTROL ===
+  - {check_id: "AC-001", control_id: "AC-2",  control_name: "Account Management",           requirement: "Limit system access to authorized users — identify inactive accounts."}
+  - {check_id: "AC-002", control_id: "AC-2",  control_name: "Account Management",           requirement: "Disable accounts inactive beyond the organization-defined period."}
+  - {check_id: "AC-003", control_id: "AC-2",  control_name: "Account Management",           requirement: "Disable the built-in Guest account."}
+  - {check_id: "AC-004", control_id: "AC-6",  control_name: "Least Privilege",              requirement: "Rename the default Administrator account to reduce attack surface."}
+  - {check_id: "AC-005", control_id: "AC-6",  control_name: "Least Privilege",              requirement: "Review local Administrators group for unauthorized members."}
+  - {check_id: "AC-006", control_id: "AC-7",  control_name: "Unsuccessful Logon Attempts",  requirement: "Configure account lockout threshold (max 5 invalid attempts)."}
+  - {check_id: "AC-007", control_id: "AC-7",  control_name: "Unsuccessful Logon Attempts",  requirement: "Configure account lockout duration (minimum 15 minutes)."}
+  - {check_id: "AC-008", control_id: "AC-11", control_name: "Session Lock",                 requirement: "Enforce session lock with pattern-hiding display after inactivity."}
+  - {check_id: "AC-009", control_id: "AC-6",  control_name: "Least Privilege",              requirement: "Review privileged group membership (Backup Operators, etc.)."}
+  - {check_id: "AC-010", control_id: "AC-17", control_name: "Remote Access",                requirement: "Restrict RDP access — limit exposure to authorized management hosts."}
+  - {check_id: "AC-011", control_id: "SI-7",  control_name: "Software and Information Integrity", requirement: "Enable LSA Protection (RunAsPPL) to prevent credential dumping."}
+  - {check_id: "AC-012", control_id: "SC-39", control_name: "Process Isolation",            requirement: "Enable Credential Guard to isolate credentials in VBS container."}
+  - {check_id: "AC-013", control_id: "IA-5",  control_name: "Authenticator Management",    requirement: "Ensure no enabled accounts have passwords set to never expire."}
+  - {check_id: "AC-014", control_id: "IA-5",  control_name: "Authenticator Management",    requirement: "Ensure all enabled accounts require a password."}
+  - {check_id: "AC-015", control_id: "IA-5",  control_name: "Authenticator Management",    requirement: "Block network authentication with blank passwords."}
+  - {check_id: "AC-016", control_id: "AC-8",  control_name: "System Use Notification",     requirement: "Configure CUI system use notification logon banner."}
+  - {check_id: "AC-017", control_id: "IA-5",  control_name: "Authenticator Management",    requirement: "Limit cached domain credentials to 0–2."}
+  - {check_id: "AC-018", control_id: "IA-5",  control_name: "Authenticator Management",    requirement: "Disable WDigest to prevent plaintext credential exposure."}
+  - {check_id: "AC-019", control_id: "AC-2",  control_name: "Account Management",           requirement: "Restrict anonymous access to the SAM database."}
+  - {check_id: "AC-020", control_id: "AC-9",  control_name: "Previous Logon Notification",  requirement: "Display last interactive logon information at login."}
+  - {check_id: "AC-022", control_id: "AC-8",  control_name: "System Use Notification",     requirement: "Do not display the last signed-in username at logon."}
+
+  # === AU: AUDIT AND ACCOUNTABILITY ===
+  - {check_id: "AU-001", control_id: "AU-2",  control_name: "Event Logging",               requirement: "Audit logon and logoff events (success and failure)."}
+  - {check_id: "AU-002", control_id: "AU-2",  control_name: "Event Logging",               requirement: "Audit privilege use events."}
+  - {check_id: "AU-003", control_id: "AU-2",  control_name: "Event Logging",               requirement: "Audit account management events."}
+  - {check_id: "AU-004", control_id: "AU-11", control_name: "Audit Record Retention",      requirement: "Configure Security log to minimum 192MB to support retention."}
+  - {check_id: "AU-005", control_id: "AU-11", control_name: "Audit Record Retention",      requirement: "Verify log retention period is defined and enforced."}
+  - {check_id: "AU-006", control_id: "AU-9",  control_name: "Protection of Audit Information", requirement: "Forward logs to a central collector for centralized retention."}
+  - {check_id: "AU-007", control_id: "AU-12", control_name: "Audit Record Generation",     requirement: "Enable advanced audit policy and process creation logging."}
+  - {check_id: "AU-008", control_id: "AU-12", control_name: "Audit Record Generation",     requirement: "Deploy Sysmon for enhanced system event logging."}
+  - {check_id: "AU-011", control_id: "AU-8",  control_name: "Time Stamps",                 requirement: "Configure NTP synchronization to an authoritative time source."}
+  - {check_id: "AU-013", control_id: "AU-12", control_name: "Audit Record Generation",     requirement: "Enable process command-line argument capture in audit log."}
+  - {check_id: "AU-014", control_id: "AU-3",  control_name: "Content of Audit Records",    requirement: "Configure Windows Event Forwarding to a central collector."}
+  - {check_id: "AU-015", control_id: "AU-12", control_name: "Audit Record Generation",     requirement: "Audit removable storage device access events."}
+  - {check_id: "PS-002", control_id: "AU-12", control_name: "Audit Record Generation",     requirement: "Enable PowerShell Script Block Logging."}
+  - {check_id: "PS-003", control_id: "AU-12", control_name: "Audit Record Generation",     requirement: "Enable PowerShell Module Logging."}
+  - {check_id: "PS-004", control_id: "AU-12", control_name: "Audit Record Generation",     requirement: "Enable PowerShell Transcription Logging."}
+
+  # === CM: CONFIGURATION MANAGEMENT ===
+  - {check_id: "CM-001", control_id: "CM-7",  control_name: "Least Functionality",         requirement: "Disable SMBv1 protocol — no valid use case remains."}
+  - {check_id: "CM-002", control_id: "CM-7",  control_name: "Least Functionality",         requirement: "Disable unnecessary and risky Windows services."}
+  - {check_id: "CM-004", control_id: "CM-7",  control_name: "Least Functionality",         requirement: "Disable AutoRun to prevent automatic malware execution."}
+  - {check_id: "CM-005", control_id: "SC-7",  control_name: "Boundary Protection",         requirement: "Enable Windows Firewall on all profiles."}
+  - {check_id: "CM-006", control_id: "SI-2",  control_name: "Flaw Remediation",            requirement: "Configure automatic updates to ensure timely patching."}
+  - {check_id: "CM-007", control_id: "SC-28", control_name: "Protection of Information at Rest", requirement: "Enable BitLocker on OS volume to protect data at rest."}
+  - {check_id: "CM-008", control_id: "SC-8",  control_name: "Transmission Confidentiality and Integrity", requirement: "Disable weak TLS protocols and cipher suites."}
+  - {check_id: "CM-009", control_id: "IA-5",  control_name: "Authenticator Management",   requirement: "Deploy LAPS to manage unique local administrator passwords."}
+  - {check_id: "CM-010", control_id: "CM-7",  control_name: "Least Functionality",         requirement: "Disable Windows Script Host."}
+  - {check_id: "CM-011", control_id: "CM-7",  control_name: "Least Functionality",         requirement: "Implement AppLocker or WDAC application control policy."}
+  - {check_id: "CM-016", control_id: "CM-7",  control_name: "Least Functionality",         requirement: "Disable AutoPlay for all drive types."}
+  - {check_id: "PS-001", control_id: "CM-7",  control_name: "Least Functionality",         requirement: "Set PowerShell execution policy to RemoteSigned or AllSigned."}
+  - {check_id: "PS-005", control_id: "CM-7",  control_name: "Least Functionality",         requirement: "Disable PowerShell v2 to prevent logging bypass."}
+  - {check_id: "SV-001", control_id: "CM-7",  control_name: "Least Functionality",         requirement: "Disable Print Spooler on non-print servers."}
+  - {check_id: "SV-002", control_id: "CM-7",  control_name: "Least Functionality",         requirement: "Disable Remote Registry service."}
+  - {check_id: "SV-003", control_id: "CM-7",  control_name: "Least Functionality",         requirement: "Ensure Telnet is not installed."}
+  - {check_id: "SV-004", control_id: "CM-7",  control_name: "Least Functionality",         requirement: "Disable SNMP service."}
+  - {check_id: "CIS-001", control_id: "CM-6", control_name: "Configuration Settings",      requirement: "Verify CIS Level 1 baseline registry configuration."}
+
+  # === IA: IDENTIFICATION AND AUTHENTICATION ===
+  - {check_id: "IA-001", control_id: "IA-5",  control_name: "Authenticator Management",   requirement: "Enforce minimum password length of 14 characters."}
+  - {check_id: "IA-002", control_id: "IA-5",  control_name: "Authenticator Management",   requirement: "Enforce password complexity requirements."}
+  - {check_id: "IA-003", control_id: "IA-5",  control_name: "Authenticator Management",   requirement: "Enforce maximum password age of 90 days."}
+  - {check_id: "IA-004", control_id: "IA-2",  control_name: "Identification and Authentication", requirement: "Require Network Level Authentication (NLA) for RDP connections."}
+
+  # === CP: CONTINGENCY PLANNING ===
+  - {check_id: "SR-001", control_id: "CP-9",  control_name: "System Backup",               requirement: "Verify Volume Shadow Copy / restore points are enabled."}
+  - {check_id: "SR-005", control_id: "CP-9",  control_name: "System Backup",               requirement: "Verify BitLocker recovery key is backed up to a safe location."}
+
+  # === SC: SYSTEM AND COMMUNICATIONS PROTECTION ===
+  - {check_id: "NH-001", control_id: "SC-7",  control_name: "Boundary Protection",         requirement: "Disable LLMNR to prevent credential theft via name poisoning."}
+  - {check_id: "NH-002", control_id: "SC-7",  control_name: "Boundary Protection",         requirement: "Disable NetBIOS over TCP/IP on all adapters."}
+  - {check_id: "NH-006", control_id: "SC-7",  control_name: "Boundary Protection",         requirement: "Restrict anonymous null session access."}
+  - {check_id: "NH-012", control_id: "SC-8",  control_name: "Transmission Confidentiality and Integrity", requirement: "Require SMB packet signing on client and server."}
+  - {check_id: "NH-013", control_id: "SC-8",  control_name: "Transmission Confidentiality and Integrity", requirement: "Require High or FIPS-compliant RDP encryption."}
+
+  # === USER RIGHTS ASSIGNMENTS (UR) ===
+  - {check_id: "UR-001", control_id: "AC-6",  control_name: "Least Privilege",              requirement: "SeTcbPrivilege must be empty."}
+  - {check_id: "UR-002", control_id: "AC-6",  control_name: "Least Privilege",              requirement: "SeDebugPrivilege — Administrators only."}
+  - {check_id: "UR-003", control_id: "AC-6",  control_name: "Least Privilege",              requirement: "SeLockMemoryPrivilege must be empty."}
+  - {check_id: "UR-004", control_id: "AC-6",  control_name: "Least Privilege",              requirement: "SeCreateTokenPrivilege must be empty."}
+  - {check_id: "UR-005", control_id: "AC-6",  control_name: "Least Privilege",              requirement: "SeEnableDelegationPrivilege must be empty."}
+  - {check_id: "UR-006", control_id: "AC-6",  control_name: "Least Privilege",              requirement: "SeCreatePermanentPrivilege must be empty."}
+  - {check_id: "UR-007", control_id: "AC-3",  control_name: "Access Enforcement",           requirement: "Guests denied network logon."}
+  - {check_id: "UR-008", control_id: "AC-3",  control_name: "Access Enforcement",           requirement: "Guests denied remote interactive logon."}
+  - {check_id: "UR-009", control_id: "AC-3",  control_name: "Access Enforcement",           requirement: "Everyone not in SeNetworkLogonRight."}
+  - {check_id: "UR-010", control_id: "AC-6",  control_name: "Least Privilege",              requirement: "SeRemoteInteractiveLogonRight — Admins and RDP Users only."}
+  - {check_id: "UR-011", control_id: "AC-6",  control_name: "Least Privilege",              requirement: "SeBackupPrivilege — Admins and Backup Operators only."}
+  - {check_id: "UR-012", control_id: "AC-6",  control_name: "Least Privilege",              requirement: "SeRestorePrivilege — Admins and Backup Operators only."}
+  - {check_id: "UR-013", control_id: "AC-6",  control_name: "Least Privilege",              requirement: "SeLoadDriverPrivilege — Administrators only."}
+  - {check_id: "UR-014", control_id: "AC-6",  control_name: "Least Privilege",              requirement: "SeTakeOwnershipPrivilege — Administrators only."}
+  - {check_id: "UR-015", control_id: "AC-6",  control_name: "Least Privilege",              requirement: "SeManageVolumePrivilege — Administrators only."}
+  - {check_id: "UR-016", control_id: "AC-6",  control_name: "Least Privilege",              requirement: "SeSystemEnvironmentPrivilege — Administrators only."}
+  - {check_id: "UR-017", control_id: "AC-6",  control_name: "Least Privilege",              requirement: "SeAssignPrimaryTokenPrivilege — Local/Network Service only."}
+  - {check_id: "UR-018", control_id: "AC-6",  control_name: "Least Privilege",              requirement: "SeImpersonatePrivilege — Admins and service accounts only."}
+  - {check_id: "UR-019", control_id: "AU-9",  control_name: "Protection of Audit Information", requirement: "SeSecurityPrivilege — Administrators only."}
+  - {check_id: "UR-020", control_id: "AC-6",  control_name: "Least Privilege",              requirement: "Guests not permitted local interactive logon."}
+  - {check_id: "AC-023", control_id: "IA-5",  control_name: "Authenticator Management",     requirement: "LmCompatibilityLevel=5 — NTLMv2 only."}
+  - {check_id: "IA-005", control_id: "IA-8",  control_name: "Identification and Authentication", requirement: "Kerberos ticket lifetime <= 10 hours."}
+  - {check_id: "IA-006", control_id: "IA-8",  control_name: "Identification and Authentication", requirement: "Kerberos service ticket lifetime <= 600 minutes."}
+  - {check_id: "IA-007", control_id: "IA-8",  control_name: "Identification and Authentication", requirement: "Kerberos clock skew <= 5 minutes."}
+  - {check_id: "AU-017", control_id: "AU-12", control_name: "Audit Record Generation",      requirement: "Key audit subcategories configured at required levels."}
+  - {check_id: "EM-012", control_id: "SC-28", control_name: "Protection of Information at Rest", requirement: "TPM present, enabled, and activated."}
+  - {check_id: "EM-013", control_id: "SC-39", control_name: "Process Isolation",            requirement: "HVCI (Memory Integrity) enabled."}
+  - {check_id: "CM-017", control_id: "CM-7",  control_name: "Least Functionality",          requirement: "WSL not installed."}
+  - {check_id: "CM-018", control_id: "CM-7",  control_name: "Least Functionality",          requirement: "TFTP client not installed."}
+  - {check_id: "CM-019", control_id: "CM-7",  control_name: "Least Functionality",          requirement: "Simple TCP/IP Services not installed."}
+  - {check_id: "CM-020", control_id: "CM-7",  control_name: "Least Functionality",          requirement: "File extensions visible (HideFileExt=0)."}
+  - {check_id: "SV-008", control_id: "CM-7",  control_name: "Least Functionality",          requirement: "Remote Assistance disabled."}
+  - {check_id: "NH-014", control_id: "SC-7",  control_name: "Boundary Protection",          requirement: "NetBIOS name release prevention enabled."}
+  - {check_id: "NH-015", control_id: "SC-7",  control_name: "Boundary Protection",          requirement: "Router discovery (IRDP) disabled."}
+
+  # === SI: SYSTEM AND INFORMATION INTEGRITY ===
+  - {check_id: "SI-001", control_id: "SI-3",  control_name: "Malicious Code Protection",   requirement: "Verify antivirus/EDR is present and running."}
+  - {check_id: "SI-002", control_id: "SI-3",  control_name: "Malicious Code Protection",   requirement: "Verify antivirus signatures are current."}
+  - {check_id: "SI-003", control_id: "SI-2",  control_name: "Flaw Remediation",            requirement: "Verify OS patch level and last update date."}
+  - {check_id: "SI-004", control_id: "SI-2",  control_name: "Flaw Remediation",            requirement: "Identify missing security updates."}
+  - {check_id: "SI-005", control_id: "SI-2",  control_name: "Flaw Remediation",            requirement: "Verify OS version is within Microsoft support lifecycle."}
+  - {check_id: "EM-001", control_id: "SI-16", control_name: "Memory Protection",           requirement: "Enable Data Execution Prevention for all programs."}
+  - {check_id: "EM-002", control_id: "SI-16", control_name: "Memory Protection",           requirement: "Enable ASLR system-wide."}
+  - {check_id: "EM-005", control_id: "SI-2",  control_name: "Flaw Remediation",            requirement: "Verify PrintNightmare (CVE-2021-34527) mitigations are applied."}
+  - {check_id: "EM-008", control_id: "SI-7",  control_name: "Software and Information Integrity", requirement: "Enable Secure Boot to detect firmware tampering."}
+  - {check_id: "EM-009", control_id: "AC-6",  control_name: "Least Privilege",             requirement: "Verify UAC is enabled and prompts on the secure desktop."}
+  - {check_id: "EM-011", control_id: "SI-3",  control_name: "Malicious Code Protection",   requirement: "Configure Windows Defender Attack Surface Reduction rules."}

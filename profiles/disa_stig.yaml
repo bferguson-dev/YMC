@@ -1,0 +1,139 @@
+# DISA STIG Windows Server Compliance Profile
+# ---------------------------------------------
+profile_name: "DISA STIG Windows Server"
+profile_id: "DISA_STIG"
+version: "Windows Server 2019/2022"
+description: >
+  Defense Information Systems Agency Security Technical Implementation Guide
+  for Windows Server. Applies to DoD information systems and contractor systems
+  processing federal or classified data. Findings are categorized CAT I (critical),
+  CAT II (high), and CAT III (medium) based on potential mission impact if the
+  vulnerability is exploited.
+
+checks:
+
+  # === CAT I — CRITICAL FINDINGS ===
+  # Immediate threat to system confidentiality, integrity, or availability
+
+  - {check_id: "AC-018", control_id: "CAT-I", control_name: "WDigest Plaintext Credential Exposure",   requirement: "Disable WDigest to prevent plaintext credential exposure."}
+  - {check_id: "AC-015", control_id: "CAT-I", control_name: "Blank Password Network Authentication",   requirement: "Block network authentication with blank passwords."}
+  - {check_id: "AC-014", control_id: "CAT-I", control_name: "Accounts Without Passwords",              requirement: "Ensure all enabled accounts require a password."}
+  - {check_id: "CM-001", control_id: "CAT-I", control_name: "SMBv1 Protocol Enabled",                  requirement: "Disable SMBv1 protocol — no valid use case remains."}
+  - {check_id: "AC-003", control_id: "CAT-I", control_name: "Guest Account Enabled",                   requirement: "Disable the built-in Guest account."}
+  - {check_id: "AC-011", control_id: "CAT-I", control_name: "LSA Protection Not Configured",           requirement: "Enable LSA Protection (RunAsPPL) to prevent credential dumping."}
+  - {check_id: "AC-012", control_id: "CAT-I", control_name: "Credential Guard Not Enabled",            requirement: "Enable Credential Guard to isolate credentials in VBS container."}
+  - {check_id: "CM-007", control_id: "CAT-I", control_name: "BitLocker Not Enabled",                   requirement: "Enable BitLocker on OS volume to protect data at rest."}
+  - {check_id: "CM-009", control_id: "CAT-I", control_name: "LAPS Not Deployed",                       requirement: "Deploy LAPS to manage unique local administrator passwords."}
+  - {check_id: "CM-011", control_id: "CAT-I", control_name: "No Application Control Policy",           requirement: "Implement AppLocker or WDAC application control policy."}
+  - {check_id: "NH-001", control_id: "CAT-I", control_name: "LLMNR Name Poisoning Risk",               requirement: "Disable LLMNR to prevent credential theft via name poisoning."}
+  - {check_id: "EM-008", control_id: "CAT-I", control_name: "Secure Boot Not Enabled",                 requirement: "Enable Secure Boot to detect firmware tampering."}
+  - {check_id: "SI-001", control_id: "CAT-I", control_name: "Antivirus/EDR Not Running",               requirement: "Verify antivirus/EDR is present and running."}
+  - {check_id: "EM-005", control_id: "CAT-I", control_name: "PrintNightmare Mitigation Missing",       requirement: "Verify PrintNightmare (CVE-2021-34527) mitigations are applied."}
+
+  # === CAT II — HIGH FINDINGS ===
+  # Significant degradation of system security posture
+
+  - {check_id: "AC-001", control_id: "CAT-II", control_name: "Inactive Account Identification",        requirement: "Limit system access to authorized users — identify inactive accounts."}
+  - {check_id: "AC-002", control_id: "CAT-II", control_name: "Inactive Account Disable",               requirement: "Disable accounts inactive beyond the organization-defined period."}
+  - {check_id: "AC-004", control_id: "CAT-II", control_name: "Default Administrator Account Name",     requirement: "Rename the default Administrator account to reduce attack surface."}
+  - {check_id: "AC-005", control_id: "CAT-II", control_name: "Unauthorized Local Administrators",      requirement: "Review local Administrators group for unauthorized members."}
+  - {check_id: "AC-006", control_id: "CAT-II", control_name: "Account Lockout Threshold",              requirement: "Configure account lockout threshold (max 5 invalid attempts)."}
+  - {check_id: "AC-007", control_id: "CAT-II", control_name: "Account Lockout Duration",               requirement: "Configure account lockout duration (minimum 15 minutes)."}
+  - {check_id: "AC-008", control_id: "CAT-II", control_name: "Session Lock Not Configured",            requirement: "Enforce session lock with pattern-hiding display after inactivity."}
+  - {check_id: "AC-009", control_id: "CAT-II", control_name: "Privileged Group Membership Review",     requirement: "Review privileged group membership (Backup Operators, etc.)."}
+  - {check_id: "AC-010", control_id: "CAT-II", control_name: "Unrestricted RDP Access",                requirement: "Restrict RDP access — limit exposure to authorized management hosts."}
+  - {check_id: "AC-013", control_id: "CAT-II", control_name: "Non-Expiring Passwords",                 requirement: "Ensure no enabled accounts have passwords set to never expire."}
+  - {check_id: "AC-017", control_id: "CAT-II", control_name: "Cached Domain Credential Limit",         requirement: "Limit cached domain credentials to 0–2."}
+  - {check_id: "AC-019", control_id: "CAT-II", control_name: "Anonymous SAM Access",                   requirement: "Restrict anonymous access to the SAM database."}
+  - {check_id: "AU-001", control_id: "CAT-II", control_name: "Logon Event Auditing Disabled",          requirement: "Audit logon and logoff events (success and failure)."}
+  - {check_id: "AU-002", control_id: "CAT-II", control_name: "Privilege Use Auditing Disabled",        requirement: "Audit privilege use events."}
+  - {check_id: "AU-003", control_id: "CAT-II", control_name: "Account Management Auditing Disabled",   requirement: "Audit account management events."}
+  - {check_id: "AU-004", control_id: "CAT-II", control_name: "Security Log Size Insufficient",         requirement: "Configure Security log to minimum 192MB to support retention."}
+  - {check_id: "AU-005", control_id: "CAT-II", control_name: "Log Retention Not Defined",              requirement: "Verify log retention period is defined and enforced."}
+  - {check_id: "AU-006", control_id: "CAT-II", control_name: "Centralized Log Collection Missing",     requirement: "Forward logs to a central collector for centralized retention."}
+  - {check_id: "AU-007", control_id: "CAT-II", control_name: "Advanced Audit Policy Not Enabled",      requirement: "Enable advanced audit policy and process creation logging."}
+  - {check_id: "AU-011", control_id: "CAT-II", control_name: "NTP Synchronization Not Configured",     requirement: "Configure NTP synchronization to an authoritative time source."}
+  - {check_id: "AU-013", control_id: "CAT-II", control_name: "Command-Line Auditing Disabled",         requirement: "Enable process command-line argument capture in audit log."}
+  - {check_id: "AU-015", control_id: "CAT-II", control_name: "Removable Storage Auditing Disabled",    requirement: "Audit removable storage device access events."}
+  - {check_id: "CM-002", control_id: "CAT-II", control_name: "Unnecessary Windows Services Running",   requirement: "Disable unnecessary and risky Windows services."}
+  - {check_id: "CM-004", control_id: "CAT-II", control_name: "AutoRun Enabled",                        requirement: "Disable AutoRun to prevent automatic malware execution."}
+  - {check_id: "CM-005", control_id: "CAT-II", control_name: "Windows Firewall Disabled",              requirement: "Enable Windows Firewall on all profiles."}
+  - {check_id: "CM-006", control_id: "CAT-II", control_name: "Automatic Updates Not Configured",       requirement: "Configure automatic updates to ensure timely patching."}
+  - {check_id: "CM-008", control_id: "CAT-II", control_name: "Weak TLS Protocols Enabled",             requirement: "Disable weak TLS protocols and cipher suites."}
+  - {check_id: "CM-010", control_id: "CAT-II", control_name: "Windows Script Host Enabled",            requirement: "Disable Windows Script Host."}
+  - {check_id: "CM-016", control_id: "CAT-II", control_name: "AutoPlay Enabled",                       requirement: "Disable AutoPlay for all drive types."}
+  - {check_id: "IA-001", control_id: "CAT-II", control_name: "Minimum Password Length",                requirement: "Enforce minimum password length of 14 characters."}
+  - {check_id: "IA-002", control_id: "CAT-II", control_name: "Password Complexity Not Enforced",       requirement: "Enforce password complexity requirements."}
+  - {check_id: "IA-003", control_id: "CAT-II", control_name: "Maximum Password Age",                   requirement: "Enforce maximum password age of 90 days."}
+  - {check_id: "IA-004", control_id: "CAT-II", control_name: "NLA Not Required for RDP",               requirement: "Require Network Level Authentication (NLA) for RDP connections."}
+  - {check_id: "NH-002", control_id: "CAT-II", control_name: "NetBIOS Over TCP/IP Enabled",            requirement: "Disable NetBIOS over TCP/IP on all adapters."}
+  - {check_id: "NH-006", control_id: "CAT-II", control_name: "Anonymous Null Session Access",          requirement: "Restrict anonymous null session access."}
+  - {check_id: "NH-012", control_id: "CAT-II", control_name: "SMB Signing Not Required",               requirement: "Require SMB packet signing on client and server."}
+  - {check_id: "NH-013", control_id: "CAT-II", control_name: "RDP Encryption Level Insufficient",      requirement: "Require High or FIPS-compliant RDP encryption."}
+  - {check_id: "PS-001", control_id: "CAT-II", control_name: "PowerShell Execution Policy",            requirement: "Set PowerShell execution policy to RemoteSigned or AllSigned."}
+  - {check_id: "PS-002", control_id: "CAT-II", control_name: "PowerShell Script Block Logging Disabled", requirement: "Enable PowerShell Script Block Logging."}
+  - {check_id: "PS-003", control_id: "CAT-II", control_name: "PowerShell Module Logging Disabled",     requirement: "Enable PowerShell Module Logging."}
+  - {check_id: "PS-004", control_id: "CAT-II", control_name: "PowerShell Transcription Disabled",      requirement: "Enable PowerShell Transcription Logging."}
+  - {check_id: "PS-005", control_id: "CAT-II", control_name: "PowerShell v2 Not Disabled",             requirement: "Disable PowerShell v2 to prevent logging bypass."}
+  - {check_id: "SI-002", control_id: "CAT-II", control_name: "Antivirus Signatures Out of Date",       requirement: "Verify antivirus signatures are current."}
+  - {check_id: "SI-003", control_id: "CAT-II", control_name: "OS Patch Level Not Verified",            requirement: "Verify OS patch level and last update date."}
+  - {check_id: "SI-004", control_id: "CAT-II", control_name: "Missing Security Updates",               requirement: "Identify missing security updates."}
+  - {check_id: "SI-005", control_id: "CAT-II", control_name: "Unsupported OS Version",                 requirement: "Verify OS version is within Microsoft support lifecycle."}
+  - {check_id: "EM-001", control_id: "CAT-II", control_name: "DEP Not Enabled",                        requirement: "Enable Data Execution Prevention for all programs."}
+  - {check_id: "EM-002", control_id: "CAT-II", control_name: "ASLR Not Enabled System-Wide",           requirement: "Enable ASLR system-wide."}
+  - {check_id: "EM-009", control_id: "CAT-II", control_name: "UAC Not Configured for Secure Desktop",  requirement: "Verify UAC is enabled and prompts on the secure desktop."}
+  - {check_id: "EM-011", control_id: "CAT-II", control_name: "ASR Rules Not Configured",               requirement: "Configure Windows Defender Attack Surface Reduction rules."}
+  - {check_id: "SV-001", control_id: "CAT-II", control_name: "Print Spooler Running on Non-Print Server", requirement: "Disable Print Spooler on non-print servers."}
+  - {check_id: "SV-002", control_id: "CAT-II", control_name: "Remote Registry Service Running",        requirement: "Disable Remote Registry service."}
+  - {check_id: "SV-003", control_id: "CAT-II", control_name: "Telnet Installed",                       requirement: "Ensure Telnet is not installed."}
+  - {check_id: "SV-004", control_id: "CAT-II", control_name: "SNMP Service Running",                   requirement: "Disable SNMP service."}
+  - {check_id: "SR-005", control_id: "CAT-II", control_name: "BitLocker Recovery Key Not Backed Up",   requirement: "Verify BitLocker recovery key is backed up to a safe location."}
+
+  # === USER RIGHTS ASSIGNMENTS — CAT I ===
+  - {check_id: "UR-001", control_id: "CAT-I",  control_name: "SeTcbPrivilege Not Empty",              requirement: "No account should hold SeTcbPrivilege (Act as OS)."}
+  - {check_id: "UR-002", control_id: "CAT-I",  control_name: "SeDebugPrivilege Not Restricted",       requirement: "SeDebugPrivilege must be Administrators only."}
+  - {check_id: "UR-003", control_id: "CAT-I",  control_name: "SeLockMemoryPrivilege Not Empty",       requirement: "No account should hold SeLockMemoryPrivilege."}
+  - {check_id: "UR-004", control_id: "CAT-I",  control_name: "SeCreateTokenPrivilege Not Empty",      requirement: "No account should hold SeCreateTokenPrivilege."}
+  - {check_id: "UR-005", control_id: "CAT-I",  control_name: "SeEnableDelegationPrivilege Not Empty", requirement: "No account should hold SeEnableDelegationPrivilege."}
+  - {check_id: "UR-006", control_id: "CAT-I",  control_name: "SeCreatePermanentPrivilege Not Empty",  requirement: "No account should hold SeCreatePermanentPrivilege."}
+  - {check_id: "UR-007", control_id: "CAT-I",  control_name: "Guests Not Denied Network Logon",       requirement: "Guests must be in SeDenyNetworkLogonRight."}
+  - {check_id: "UR-008", control_id: "CAT-I",  control_name: "Guests Not Denied RDP Logon",           requirement: "Guests must be in SeDenyRemoteInteractiveLogonRight."}
+  - {check_id: "UR-009", control_id: "CAT-I",  control_name: "Everyone in Network Logon Right",       requirement: "Everyone must not be in SeNetworkLogonRight."}
+  - {check_id: "AC-023", control_id: "CAT-I",  control_name: "NTLM Auth Level Not Restricted",        requirement: "Set LmCompatibilityLevel=5 to enforce NTLMv2 only."}
+
+  # === USER RIGHTS ASSIGNMENTS — CAT II ===
+  - {check_id: "UR-010", control_id: "CAT-II", control_name: "RDP Logon Right Not Restricted",        requirement: "SeRemoteInteractiveLogonRight must be Admins and RDP Users only."}
+  - {check_id: "UR-011", control_id: "CAT-II", control_name: "Backup Privilege Not Restricted",       requirement: "SeBackupPrivilege must be Administrators and Backup Operators only."}
+  - {check_id: "UR-012", control_id: "CAT-II", control_name: "Restore Privilege Not Restricted",      requirement: "SeRestorePrivilege must be Administrators and Backup Operators only."}
+  - {check_id: "UR-013", control_id: "CAT-II", control_name: "Load Driver Not Restricted",            requirement: "SeLoadDriverPrivilege must be Administrators only."}
+  - {check_id: "UR-014", control_id: "CAT-II", control_name: "Take Ownership Not Restricted",         requirement: "SeTakeOwnershipPrivilege must be Administrators only."}
+  - {check_id: "UR-015", control_id: "CAT-II", control_name: "Volume Maintenance Not Restricted",     requirement: "SeManageVolumePrivilege must be Administrators only."}
+  - {check_id: "UR-016", control_id: "CAT-II", control_name: "Firmware Environment Not Restricted",   requirement: "SeSystemEnvironmentPrivilege must be Administrators only."}
+  - {check_id: "UR-017", control_id: "CAT-II", control_name: "Process Token Replace Not Restricted",  requirement: "SeAssignPrimaryTokenPrivilege must be Local/Network Service only."}
+  - {check_id: "UR-018", control_id: "CAT-II", control_name: "Impersonate Privilege Not Restricted",  requirement: "SeImpersonatePrivilege must be Admins and service accounts only."}
+  - {check_id: "UR-019", control_id: "CAT-II", control_name: "Audit Log Management Not Restricted",   requirement: "SeSecurityPrivilege must be Administrators only."}
+  - {check_id: "UR-020", control_id: "CAT-II", control_name: "Guests Allowed Interactive Logon",      requirement: "Guests must not be in SeInteractiveLogonRight."}
+  - {check_id: "IA-005", control_id: "CAT-II", control_name: "Kerberos Ticket Lifetime Too Long",     requirement: "Kerberos MaxTicketAge must be <= 10 hours."}
+  - {check_id: "IA-006", control_id: "CAT-II", control_name: "Kerberos Service Ticket Too Long",      requirement: "Kerberos MaxServiceAge must be <= 600 minutes."}
+  - {check_id: "IA-007", control_id: "CAT-II", control_name: "Kerberos Clock Skew Too Large",         requirement: "Kerberos MaxClockSkew must be <= 5 minutes."}
+  - {check_id: "AU-017", control_id: "CAT-II", control_name: "Audit Subcategories Not Configured",    requirement: "Key audit subcategories must be auditing at required levels."}
+  - {check_id: "EM-012", control_id: "CAT-II", control_name: "TPM Not Enabled",                       requirement: "TPM must be present, enabled, and activated."}
+  - {check_id: "EM-013", control_id: "CAT-II", control_name: "HVCI Not Enabled",                      requirement: "Hypervisor-Protected Code Integrity must be enabled."}
+  - {check_id: "CM-017", control_id: "CAT-II", control_name: "WSL Installed",                         requirement: "WSL must not be installed on managed systems."}
+  - {check_id: "CM-018", control_id: "CAT-II", control_name: "TFTP Client Installed",                 requirement: "TFTP client must not be installed."}
+  - {check_id: "CM-019", control_id: "CAT-II", control_name: "Simple TCP/IP Services Installed",      requirement: "Simple TCP/IP Services must not be installed."}
+  - {check_id: "SV-008", control_id: "CAT-II", control_name: "Remote Assistance Enabled",             requirement: "Remote Assistance must be disabled on managed systems."}
+  - {check_id: "NH-014", control_id: "CAT-II", control_name: "NetBIOS Name Release Enabled",          requirement: "NoNameReleaseOnDemand must be set to 1."}
+  - {check_id: "NH-015", control_id: "CAT-II", control_name: "Router Discovery Enabled",              requirement: "PerformRouterDiscovery must be disabled (0)."}
+
+  # === CAT III — MEDIUM FINDINGS ===
+  # Reduce system security posture but have limited immediate impact
+
+  - {check_id: "CM-020", control_id: "CAT-III", control_name: "File Extensions Hidden",               requirement: "File extensions must be visible — set HideFileExt=0."}
+  - {check_id: "AC-016", control_id: "CAT-III", control_name: "Logon Banner Not Configured",           requirement: "Configure CUI system use notification logon banner."}
+  - {check_id: "AC-020", control_id: "CAT-III", control_name: "Last Logon Information Not Displayed",  requirement: "Display last interactive logon information at login."}
+  - {check_id: "AC-022", control_id: "CAT-III", control_name: "Last Username Displayed at Logon",      requirement: "Do not display the last signed-in username at logon."}
+  - {check_id: "AU-008", control_id: "CAT-III", control_name: "Sysmon Not Deployed",                   requirement: "Deploy Sysmon for enhanced system event logging."}
+  - {check_id: "AU-014", control_id: "CAT-III", control_name: "Windows Event Forwarding Not Configured", requirement: "Configure Windows Event Forwarding to a central collector."}
+  - {check_id: "CIS-001", control_id: "CAT-III", control_name: "CIS Baseline Registry Configuration",  requirement: "Verify CIS Level 1 baseline registry configuration."}
+  - {check_id: "SR-001", control_id: "CAT-III", control_name: "Volume Shadow Copy Not Enabled",        requirement: "Verify Volume Shadow Copy / restore points are enabled."}

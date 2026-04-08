@@ -141,5 +141,55 @@ checks:
   - {check_id: "CERT-001", control_id: "SC-17", control_name: "Public Key Infrastructure", requirement: "Identify and remove expired certificates from local stores."}
   - {check_id: "CERT-002", control_id: "SC-17", control_name: "Public Key Infrastructure", requirement: "Verify no unexpected root certificates are in the Trusted Root CA store."}
 
+  # === USER RIGHTS ASSIGNMENTS (UR) ===
+  - {check_id: "UR-001", control_id: "AC-6",  control_name: "Least Privilege",            requirement: "Ensure SeTcbPrivilege (Act as OS) is not granted to any account."}
+  - {check_id: "UR-002", control_id: "AC-6",  control_name: "Least Privilege",            requirement: "Restrict SeDebugPrivilege to Administrators only."}
+  - {check_id: "UR-003", control_id: "AC-6",  control_name: "Least Privilege",            requirement: "Ensure SeLockMemoryPrivilege is not granted to any account."}
+  - {check_id: "UR-004", control_id: "AC-6",  control_name: "Least Privilege",            requirement: "Ensure SeCreateTokenPrivilege is not granted to any account."}
+  - {check_id: "UR-005", control_id: "AC-6",  control_name: "Least Privilege",            requirement: "Ensure SeEnableDelegationPrivilege is not granted to any account."}
+  - {check_id: "UR-006", control_id: "AC-6",  control_name: "Least Privilege",            requirement: "Ensure SeCreatePermanentPrivilege is not granted to any account."}
+  - {check_id: "UR-007", control_id: "AC-3",  control_name: "Access Enforcement",         requirement: "Ensure Guests are denied network logon (SeDenyNetworkLogonRight)."}
+  - {check_id: "UR-008", control_id: "AC-3",  control_name: "Access Enforcement",         requirement: "Ensure Guests are denied remote interactive logon."}
+  - {check_id: "UR-009", control_id: "AC-3",  control_name: "Access Enforcement",         requirement: "Ensure Everyone is not in SeNetworkLogonRight."}
+  - {check_id: "UR-010", control_id: "AC-6",  control_name: "Least Privilege",            requirement: "Restrict SeRemoteInteractiveLogonRight to Admins and RDP Users."}
+  - {check_id: "UR-011", control_id: "AC-6",  control_name: "Least Privilege",            requirement: "Restrict SeBackupPrivilege to Administrators and Backup Operators."}
+  - {check_id: "UR-012", control_id: "AC-6",  control_name: "Least Privilege",            requirement: "Restrict SeRestorePrivilege to Administrators and Backup Operators."}
+  - {check_id: "UR-013", control_id: "AC-6",  control_name: "Least Privilege",            requirement: "Restrict SeLoadDriverPrivilege to Administrators only."}
+  - {check_id: "UR-014", control_id: "AC-6",  control_name: "Least Privilege",            requirement: "Restrict SeTakeOwnershipPrivilege to Administrators only."}
+  - {check_id: "UR-015", control_id: "AC-6",  control_name: "Least Privilege",            requirement: "Restrict SeManageVolumePrivilege to Administrators only."}
+  - {check_id: "UR-016", control_id: "AC-6",  control_name: "Least Privilege",            requirement: "Restrict SeSystemEnvironmentPrivilege to Administrators only."}
+  - {check_id: "UR-017", control_id: "AC-6",  control_name: "Least Privilege",            requirement: "Restrict SeAssignPrimaryTokenPrivilege to Local/Network Service only."}
+  - {check_id: "UR-018", control_id: "AC-6",  control_name: "Least Privilege",            requirement: "Restrict SeImpersonatePrivilege to Admins and service accounts."}
+  - {check_id: "UR-019", control_id: "AU-9",  control_name: "Protection of Audit Info",   requirement: "Restrict SeSecurityPrivilege (manage audit log) to Administrators only."}
+  - {check_id: "UR-020", control_id: "AC-6",  control_name: "Least Privilege",            requirement: "Ensure Guests are not permitted local interactive logon."}
+
+  # === CREDENTIAL AUTH ADDITIONS ===
+  - {check_id: "AC-023", control_id: "IA-5",  control_name: "Authenticator Management",   requirement: "Set LmCompatibilityLevel=5 to enforce NTLMv2 and reject LM/NTLM."}
+
+  # === IDENTIFICATION AND AUTHENTICATION ADDITIONS ===
+  - {check_id: "IA-005", control_id: "IA-8",  control_name: "Identification and Authentication", requirement: "Verify Kerberos maximum ticket lifetime <= 10 hours."}
+  - {check_id: "IA-006", control_id: "IA-8",  control_name: "Identification and Authentication", requirement: "Verify Kerberos maximum service ticket lifetime <= 600 minutes."}
+  - {check_id: "IA-007", control_id: "IA-8",  control_name: "Identification and Authentication", requirement: "Verify Kerberos maximum clock skew tolerance <= 5 minutes."}
+
+  # === AUDIT LOGGING ADDITIONS ===
+  - {check_id: "AU-017", control_id: "AU-12", control_name: "Audit Record Generation",    requirement: "Verify key audit subcategories (Logon, Process Creation, etc.) are audited."}
+
+  # === EXPLOIT MITIGATION ADDITIONS ===
+  - {check_id: "EM-012", control_id: "SC-28", control_name: "Protection of Info at Rest", requirement: "Verify TPM is present, enabled, and activated."}
+  - {check_id: "EM-013", control_id: "SC-39", control_name: "Process Isolation",          requirement: "Verify HVCI (Memory Integrity) is enabled."}
+
+  # === CONFIGURATION MANAGEMENT ADDITIONS ===
+  - {check_id: "CM-017", control_id: "CM-7",  control_name: "Least Functionality",        requirement: "Ensure Windows Subsystem for Linux (WSL) is not installed."}
+  - {check_id: "CM-018", control_id: "CM-7",  control_name: "Least Functionality",        requirement: "Ensure TFTP client is not installed."}
+  - {check_id: "CM-019", control_id: "CM-7",  control_name: "Least Functionality",        requirement: "Ensure Simple TCP/IP Services is not installed."}
+  - {check_id: "CM-020", control_id: "CM-7",  control_name: "Least Functionality",        requirement: "Verify file extensions are visible (HideFileExt=0)."}
+
+  # === SERVICES ADDITIONS ===
+  - {check_id: "SV-008", control_id: "CM-7",  control_name: "Least Functionality",        requirement: "Verify Remote Assistance is disabled."}
+
+  # === NETWORK HARDENING ADDITIONS ===
+  - {check_id: "NH-014", control_id: "SC-7",  control_name: "Boundary Protection",        requirement: "Prevent NetBIOS name release on demand (NoNameReleaseOnDemand=1)."}
+  - {check_id: "NH-015", control_id: "SC-7",  control_name: "Boundary Protection",        requirement: "Disable router discovery (IRDP) to prevent traffic redirection."}
+
   # === CIS BASELINE ===
   - {check_id: "CIS-001", control_id: "CM-6",  control_name: "Configuration Settings",   requirement: "Verify CIS Level 1 baseline registry settings."}
